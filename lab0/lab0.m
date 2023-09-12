@@ -115,7 +115,14 @@ xVector = yVector .^2;
 %%
 
 %% 6.2
-% greater than (bullet 2)
+yVector = 10*rand(1,100);
+xVector = [1:100];
+
+negativeYVector = yVector * -1;
+
+[newXVector, newYVector] = greaterThan(xVector, negativeYVector, -5);
+
+newYVector2 = newYVector * -1;
 
 %%
 
