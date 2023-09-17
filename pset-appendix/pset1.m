@@ -27,9 +27,9 @@ ht = hInf - ((hInf - h0) * exp(1).^(-t/Th));
 gkt = ((nt).^4) .* 36;
 gnat = ((mt.^3)) .* (ht) .* (120);
 
-plot(t, gkt, Color='red');
+plot(t, gkt, Color='green');
 hold on
-plot(t, gnat, Color='green');
+plot(t, gnat, Color='red');
 hold off;
 
 title('Conductances after a voltage clamp from -65 to +23 mV')
@@ -51,45 +51,57 @@ plot(t, Vmem);
 %%
 
 %% Question 5
-
-%%
 % time vector
 time = (-30:1/1000:30);
 
-% sinc function
+%% sinc function
 sinc_function = sinc(time);
+
 figure;
 plot(time, sinc_function, 'black');
 title('Sinc Function');
 xlabel('Time (t)');
 ylabel('sinc(t)(x)');
 legend('sinc(t)');
+%%
 
-% derivative of sinc function
+%% derivative of sinc function
 dsincdt = gradient(sinc_function);
 figure;
 plot(time, dsincdt, "black");
 title('Derivative of Sinc Function');
 xlabel('Time (t)');
 ylabel('d(sinc(t))/dt');
-legend('d(sinc(t))/dt')
+legend('d(sinc(t))/dt');
+%%
 
+%%
 % mask declaration for graph portions
-positive_mask = dsincdt > 0;
-zero_mask = find(diff(sign(dsincdt)));
-negative_mask = dsincdt < 0;
+positive_derivative = dsincdt > 0;
+zero_crossing = find(diff(sign(dsincdt)));
+negative_derivative = dsincdt < 0;
 
+% sign-corresponding derivative colors
 figure;
 hold on;
-plot(time(positive_mask), dsincdt(positive_mask), 'green');
-plot(time(negative_mask), dsincdt(negative_mask), 'red');
-scatter(time(zero_mask), dsincdt(zero_mask), 'y', 's', 'filled');
+plot(time(positive_derivative), dsincdt(positive_derivative), 'green');
+plot(time(negative_derivative), dsincdt(negative_derivative), 'red');
+scatter(time(zero_crossing), dsincdt(zero_crossing), 'y', 's', 'filled');
+
 title('Derivative of Sinc Function');
 xlabel('Time (t)');
-ylabel('dx/dt')
+ylabel('dx/dt');
 legend('Positive derivative', 'negative derivative', 'Zero-crossing point');
 hold off;
 %%
 
+%%
+% sign-corresponding sinct colors for its derivative
+figure;
+hold on;
+plot(time(positive_derivative), sinc(time(positive_derivative)), 'g.');
+plot(time(negative_derivative), sinc_function(negative_derivative), 'r.');
+scatter(time(zero_crossing), dsincdt(zero_crossing), 'y', 's', 'filled');
+hold off;
 %%
 %%
