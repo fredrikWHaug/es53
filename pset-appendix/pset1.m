@@ -51,14 +51,45 @@ plot(t, Vmem);
 %%
 
 %% Question 5
-%% 5 a) sinc
-t = [-30:1/1000:30];
-plot(t, sinc(t), Color='black');
+
+%%
+% time vector
+time = (-30:1/1000:30);
+
+% sinc function
+sinc_function = sinc(time);
+figure;
+plot(time, sinc_function, 'black');
+title('Sinc Function');
 xlabel('Time (t)');
 ylabel('sinc(t)(x)');
-derivative = gradient(sinc(t));
-plot(t, derivative, Color='blue');
+legend('sinc(t)');
+
+% derivative of sinc function
+dsincdt = gradient(sinc_function);
+figure;
+plot(time, dsincdt, "black");
+title('Derivative of Sinc Function');
 xlabel('Time (t)');
-ylabel('d(sinc(t)/dt)');
+ylabel('d(sinc(t))/dt');
+legend('d(sinc(t))/dt')
+
+% mask declaration for graph portions
+positive_mask = dsincdt > 0;
+zero_mask = find(diff(sign(dsincdt)));
+negative_mask = dsincdt < 0;
+
+figure;
+hold on;
+plot(time(positive_mask), dsincdt(positive_mask), 'green');
+plot(time(negative_mask), dsincdt(negative_mask), 'red');
+scatter(time(zero_mask), dsincdt(zero_mask), 'y', 's', 'filled');
+title('Derivative of Sinc Function');
+xlabel('Time (t)');
+ylabel('dx/dt')
+legend('Positive derivative', 'negative derivative', 'Zero-crossing point');
+hold off;
+%%
+
 %%
 %%
