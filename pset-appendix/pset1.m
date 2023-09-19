@@ -1,20 +1,19 @@
 %% Question 4
-
 %% 4a)
-t = [0:8/200:8];
+t = 0:8/200:8;
 
 % n gates (activation for K+ ions)
-n0 = 0.3177
-nInf = 0.9494
-Tn = 1.2028
+n0 = 0.3177;
+nInf = 0.9494;
+Tn = 1.2028;
 
 % m gates (activation for Na+ ions)
-m0 = 0.0529
-mInf = 0.9953
-Tm = 0.1577
+m0 = 0.0529;
+mInf = 0.9953;
+Tm = 0.1577;
 
 % h gates (inactivaton for k+ ions)
-h0 = 0.5961
+h0 = 0.5961;
 hInf = 0.0009;
 Th = 1.0022;
 
@@ -27,27 +26,28 @@ ht = hInf - ((hInf - h0) * exp(1).^(-t/Th));
 gkt = ((nt).^4) .* 36;
 gnat = ((mt.^3)) .* (ht) .* (120);
 
-plot(t, gkt, Color='green');
+figure;
+plot(t, gkt, Color='r', LineWidth=2);
 hold on
-plot(t, gnat, Color='red');
+plot(t, gnat, Color='y', LineWidth=2);
 hold off;
 
 title('Conductances after a voltage clamp from -65 to +23 mV')
 xlabel('Time (ms)');
 ylabel('Conductance (mS/cm2)');
-% difference: pottasium does not go down. Also, shorter time period for Na
-% spike
 %%
 
 %% 4e)
 Ek = -90;
 ENa = 55;
 
+figure;
 Vmem = ((gkt.*Ek) + (gnat.*ENa)) ./ (gkt + gnat);
-plot(t, Vmem);
-% explination
+plot(t, Vmem, LineWidth=2);
+title('Membrane Potential Based on Calculated Conductances')
+xlabel('Vmem');
+ylabel('Time (t)');
 %%
-
 %%
 
 %% Question 5
@@ -78,14 +78,14 @@ legend('d(sinc(t))/dt');
 %%
 % mask declaration for graph portions
 positive_derivative = dsincdt > 0;
-zero_crossing = find(diff(sign(dsincdt)));
 negative_derivative = dsincdt < 0;
+zero_crossing = find(diff(sign(dsincdt)));
 
 % sign-corresponding derivative colors
 figure;
 hold on;
-plot(time(positive_derivative), dsincdt(positive_derivative), 'green');
-plot(time(negative_derivative), dsincdt(negative_derivative), 'red');
+plot(time(positive_derivative), dsincdt(positive_derivative), 'g.');
+plot(time(negative_derivative), dsincdt(negative_derivative), 'r.');
 scatter(time(zero_crossing), dsincdt(zero_crossing), 'y', 's', 'filled');
 
 title('Derivative of Sinc Function');
@@ -102,6 +102,10 @@ hold on;
 plot(time(positive_derivative), sinc(time(positive_derivative)), 'g.');
 plot(time(negative_derivative), sinc_function(negative_derivative), 'r.');
 scatter(time(zero_crossing), dsincdt(zero_crossing), 'y', 's', 'filled');
+title('Sinc Function');
+xlabel('Time (t)');
+ylabel('sinc(t)(x)');
+legend('Positive derivative', 'negative derivative', 'Zero-crossing point');
 hold off;
 %%
 %%
