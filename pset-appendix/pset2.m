@@ -13,47 +13,40 @@
 
 % subplot 1
 subplot(3,1,1);
-% extracting membrane potential from the state vector
-plot(y(:, 1));
+plot(y(:, 1)); % extracting membrane potential from the state vector
 
-% redefining information for conductances
-
-% n gates (activation for K+ ions)
-n0 = 0.3177;
+% n gate constants
 nInf = 0.9494;
 Tn = 1.2028;
 
-% m gates (activation for Na+ ions)
-m0 = 0.0529;
+% m gate constants
 mInf = 0.9953;
 Tm = 0.1577;
 
-% h gates (inactivaton for k+ ions)
-h0 = 0.5961;
+% h gate constants
 hInf = 0.0009;
 Th = 1.0022;
 
-nt = nInf - ((nInf - n0) * exp(1).^(-t/Tn));
-mt = mInf - ((mInf - m0) * exp(1).^(-t/Tm));
-ht = hInf - ((hInf - h0) * exp(1).^(-t/Th));
+nt = nInf - ((nInf - y(:, 4)) .* exp(1).^(-t/Tn));
+mt = mInf - ((mInf - y(:, 2)) .* exp(1).^(-t/Tm));
+ht = hInf - ((hInf - y(:, 3)) .* exp(1).^(-t/Th));
 
 gkt = ((nt).^4) .* 36;
 gnat = ((mt.^3)) .* (ht) .* (120);
 
 % subplot 2
-figure(1);
 subplot(3, 1, 2);
 hold on
-plot(t, gkt);
-plot(t, gnat);
+plot(gkt);
+plot(gnat);
 hold off
 
-% subplot 2
+% subplot 3
 subplot(3, 1, 3);
 hold on 
-plot(t, nt);
-plot(t, mt);
-plot(t, ht);
+plot(y(:, 2));
+plot(y(:, 3));
+plot(y(:, 4));
 hold off
 %%
 
