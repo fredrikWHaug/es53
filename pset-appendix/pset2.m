@@ -106,7 +106,39 @@ hold off
 %% Question 5
 
 %% 5a
+a = 20;
+b = 0.2;
+vmax = 1;
+t=0;
+t0 = 100;
+tension = (0:100);
+v = ((b .* (t0+a)) ./ (tension+a)) - b;
 
+figure;
+plot(tension, v);
+xlabel('Tension (N)');
+ylabel('Velocity (m/s)');
+%%
+
+%% 5b
+a = linspace(5, 30, 6);
+b = linspace(0.05, 0.3, 6);
+vmax = 1;
+t = 0;
+t0 = 100;
+tension = (0:100);
+figure;
+hold on
+for i=1:length(b)
+    aloop = a(i);
+    bloop = b(i);
+    v = (bloop .* (t0 + aloop)) ./ ((tension + aloop) - bloop);
+    plot(tension, v);
+    xlabel('Tension (N)');
+    ylabel('Velocity (m/s)');
+    grid on;
+end
+hold off
 %%
 
 %%
