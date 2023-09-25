@@ -13,7 +13,9 @@
 
 % subplot 1
 subplot(3,1,1);
-plot(y(:, 1)); % extracting membrane potential from the state vector
+plot(y(:, 1));% extracting membrane potential from the state vector
+xlabel('Time (ms)');
+ylabel('Vm (mV)');
 
 % n gate constants
 nInf = 0.9494;
@@ -40,6 +42,8 @@ hold on
 plot(gkt);
 plot(gnat);
 hold off
+xlabel('Time (ms)');
+ylabel('Conductance [INSERT UNIT HERE]'); % remember to update unit
 
 % subplot 3
 subplot(3, 1, 3);
@@ -48,6 +52,8 @@ plot(y(:, 2));
 plot(y(:, 3));
 plot(y(:, 4));
 hold off
+xlabel('Time (ms)');
+ylabel('Probabilities [INSERT UNIT HERE]'); % remember to insert unit
 %%
 
 %% 1b
@@ -57,12 +63,13 @@ for i=0:101
 [t, y] = run_hh_model(8, i, 0.1);
 plot(t, y(:, 1));
 end
-ylabel('Membrane Potential (mV)');
+ylabel('Vm (mV)');
 xlabel('Time (ms)');
 hold off
 %%
 
 %% 1c
+% do scatter here to match the pset handout
 peak = [];
 current = [];
 for i=0:100
@@ -71,7 +78,35 @@ for i=0:100
     peak = [peak, max(membrane)];
     current = [current, i];
 end
-plot(current, peak)
+figure;
+hold on
+scatter(current, peak); % check scatter situation here
+plot(current, peak, 'b');
+hold off
+%%
+
+%% 1d
+[t1, y1] = run_hh_model(15, 16, 0.1);
+vmembrane1 = y1(:, 1);
+[t2, y2] = run_hh_model(15, 80, 0.1);
+vmembrane2 = y2(:, 1);
+
+figure;
+plot(t1, vmembrane1);
+hold on
+plot(t2, vmembrane2);
+xlabel('Time (ms)');
+ylabel('Vm (mV)');
+legend('Barely treshold', 'fully treshold');
+hold off
+%%
+
+%%
+
+%% Question 5
+
+%% 5a
+
 %%
 
 %%
