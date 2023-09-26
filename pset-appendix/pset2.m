@@ -43,7 +43,7 @@ plot(gkt);
 plot(gnat);
 hold off
 xlabel('Time (ms)');
-ylabel('Conductance [INSERT UNIT HERE]'); % remember to update unit
+ylabel('Conductance (mS)'); % remember to update unit
 
 % subplot 3
 subplot(3, 1, 3);
@@ -53,7 +53,7 @@ plot(y(:, 3));
 plot(y(:, 4));
 hold off
 xlabel('Time (ms)');
-ylabel('Probabilities [INSERT UNIT HERE]'); % remember to insert unit
+ylabel('Probability'); % remember to insert unit
 %%
 
 %% 1b
@@ -63,7 +63,7 @@ for i=0:101
 [t, y] = run_hh_model(8, i, 0.1);
 plot(t, y(:, 1));
 end
-ylabel('Vm (mV)');
+ylabel('Membrane Potential (mV)');
 xlabel('Time (ms)');
 hold off
 %%
@@ -83,6 +83,8 @@ hold on
 scatter(current, peak); % check scatter situation here
 plot(current, peak, 'b');
 hold off
+xlabel('Amplitude of 0.1 Current Pulse (uA/cm)');
+ylabel('Peak Depolarization (mV)');
 %%
 
 %% 1d
@@ -96,8 +98,8 @@ plot(t1, vmembrane1);
 hold on
 plot(t2, vmembrane2);
 xlabel('Time (ms)');
-ylabel('Vm (mV)');
-legend('Barely treshold', 'fully treshold');
+ylabel('Membrane Potential mV');
+legend('barely supertreshold', 'fully supertreshold');
 hold off
 %%
 
