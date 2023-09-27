@@ -1,8 +1,9 @@
 %% Code for ENG-SCI 53 Problem Set 2: Hodgkin Huxley Model and Muscle Tension vs. Velocity
-% Filename: lab0
+% Filename: Problem Set 2
 % Author: Fredrik Willumsen Haug
-% Created: September 19th, 2023
-% Description: Problem Set 1
+% Creaed: September 19th, 2023
+% Last Edited: September 26th, 2023
+% Description: Problem Set 2
 %%
 
 %% Question 1
@@ -12,8 +13,9 @@
 [t, y] = run_hh_model(8, 100, 0.1);
 
 % subplot 1
+figure(1);
 subplot(3,1,1);
-plot(y(:, 1));% extracting membrane potential from the state vector
+plot(t, y(:, 1));% extracting membrane potential from the state vector
 xlabel('Time (ms)');
 ylabel('Vm (mV)');
 
@@ -37,29 +39,31 @@ gkt = ((nt).^4) .* 36;
 gnat = ((mt.^3)) .* (ht) .* (120);
 
 % subplot 2
+figure(1);
 subplot(3, 1, 2);
 hold on
-plot(gkt);
-plot(gnat);
+plot(t, gkt);
+plot(t, gnat);
 hold off
 xlabel('Time (ms)');
-ylabel('Conductance (mS)'); % remember to update unit
+ylabel('Conductance (mS)'); 
 
 % subplot 3
+figure(1);
 subplot(3, 1, 3);
 hold on 
-plot(y(:, 2));
-plot(y(:, 3));
-plot(y(:, 4));
+plot(t, y(:, 2));
+plot(t, y(:, 3));
+plot(t, y(:, 4));
 hold off
 xlabel('Time (ms)');
-ylabel('Probability'); % remember to insert unit
+ylabel('Probability'); 
 %%
 
 %% 1b
 figure(2);
 hold on
-for i=0:101
+for i=1:101
 [t, y] = run_hh_model(8, i, 0.1);
 plot(t, y(:, 1));
 end
@@ -69,22 +73,22 @@ hold off
 %%
 
 %% 1c
-% do scatter here to match the pset handout
 peak = [];
 current = [];
-for i=0:100
-    [t, y] = run_hh_model(8, i, 0.1);
+
+for i=1:101
+    [t, y] = run_hh_model(20, i, 0.1);
     membrane = y(:, 1);
     peak = [peak, max(membrane)];
     current = [current, i];
 end
-figure;
+figure(3);
 hold on
-scatter(current, peak); % check scatter situation here
-plot(current, peak, 'b');
-hold off
+xlim([0, 100]);
+plot(current, peak, Marker='o',MarkerFaceColor='blue');
 xlabel('Amplitude of 0.1 Current Pulse (uA/cm)');
 ylabel('Peak Depolarization (mV)');
+hold off
 %%
 
 %% 1d
@@ -93,7 +97,7 @@ vmembrane1 = y1(:, 1);
 [t2, y2] = run_hh_model(15, 80, 0.1);
 vmembrane2 = y2(:, 1);
 
-figure;
+figure(4);
 plot(t1, vmembrane1);
 hold on
 plot(t2, vmembrane2);
@@ -111,34 +115,29 @@ hold off
 a = 20;
 b = 0.2;
 vmax = 1;
-t=0;
-t0 = 100;
-tension = (0:100);
-v = ((b .* (t0+a)) ./ (tension+a)) - b;
+t0 = (vmax * a) / b;
+t = linspace(0, 200);
+v = b*(t0 - t) ./ (t + a);
 
-figure;
-plot(tension, v);
+figure(5);
+plot(t, v);
 xlabel('Tension (N)');
 ylabel('Velocity (m/s)');
 %%
 
 %% 5b
-a = linspace(5, 30, 6);
-b = linspace(0.05, 0.3, 6);
-vmax = 1;
-t = 0;
-t0 = 100;
-tension = (0:100);
-figure;
+t = linspace(0, 200);
+na = linspace(5, 30, 6);
+nb = linspace(0.05, 0.30, 6); % calculated by vmax = t0*b/a
+
+figure(6);
 hold on
-for i=1:length(b)
-    aloop = a(i);
-    bloop = b(i);
-    v = (bloop .* (t0 + aloop)) ./ ((tension + aloop) - bloop);
-    plot(tension, v);
-    xlabel('Tension (N)');
+for i = 1:6
+    v = nb(i) * (t0 - t) ./ (t + na(i));
+    plot(t, v);
+    xlabel('Force (N)');
     ylabel('Velocity (m/s)');
-    grid on;
+    legend('a = 5N', 'a = 10N', 'a = 15N', 'a = 20N', 'a = 25N', 'a = 30N')
 end
 hold off
 %%
