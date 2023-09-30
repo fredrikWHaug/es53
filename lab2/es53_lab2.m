@@ -268,6 +268,10 @@ aaron_closed_eyes = aaron.data(aaron.datastart(1, 8) + 200 : aaron.dataend(1, 8)
 t_aaron = [1:length(aaron_closed_eyes)] * dt;
 variance_closed_eyes_aaron = var(aaron_closed_eyes);
 
+group_closed_eyes_data = [michael_closed_eyes, fredrik_closed_eyes, salaidh_closed_eyes, aaron_closed_eyes];
+
+group_closed_eyes_variance = var(group_closed_eyes_data);
+
 % plotting 
 figure(4);
 hold on
