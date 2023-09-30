@@ -174,17 +174,13 @@ Bicep_S = std(A);
 Tricep_S = std(B);
 %%
 
-clear all
-close all
-
-%% Data Load exercise 3
+%% 3.1
+% data load
 michael = load("Lab2_Ex1_Michael.mat");
 aaron = load("Lab2_Ex1_Aaron.mat");
 salaidh = load("lab2_ex1_salaidh.mat");
 fredrik = load("Lab2_Ex1_Fredrik.mat");
-%%
 
-%% 3.1
 % get maximum region for michael
 michael_max_region = michael.data(michael.datastart(1, 6) + 30 : michael.dataend(1, 6) - 35);
 
@@ -229,7 +225,7 @@ michael = michael_max;
 fredrik = fredrik_max;
 salaidh = salaidh_max;
 aaron= aaron_max;
-average = group_max_data_force_mean ;
+average = group_max_data_force_mean;
 std = group_max_data_std;
 
 table2 = table(force, michael, fredrik, salaidh, aaron, average, std);
@@ -240,6 +236,11 @@ table2 = table(force, michael, fredrik, salaidh, aaron, average, std);
 % 20 second region of closed eyes we subtract the first and last 200 data
 % points, because the total recording is 800 data points and we want the 
 % middle 400
+% data re-load (variable overwrite for table)
+michael = load("Lab2_Ex1_Michael.mat");
+aaron = load("Lab2_Ex1_Aaron.mat");
+salaidh = load("lab2_ex1_salaidh.mat");
+fredrik = load("Lab2_Ex1_Fredrik.mat");
 
 % define samle rate for time axis
 dt = 1 / michael.samplerate(1);
@@ -296,6 +297,12 @@ legend('Michael', 'Fredrik', 'Salaidh', 'Aaron');
 %%
 
 %% 3.3
+% data re-load (variable overwrite for table)
+michael = load("Lab2_Ex1_Michael.mat");
+aaron = load("Lab2_Ex1_Aaron.mat");
+salaidh = load("lab2_ex1_salaidh.mat");
+fredrik = load("Lab2_Ex1_Fredrik.mat");
+
 dt = 1 / michael.samplerate(1);
 
 michael_fatigue = michael.data(michael.datastart(1, 6) : michael.dataend(1, 6));
