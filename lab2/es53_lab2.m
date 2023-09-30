@@ -219,9 +219,9 @@ aaron_max = max(aaron.data(aaron.datastart(1, 6) : aaron.dataend(1, 6)))
 aaron_mean = mean(aaron_max_region)
 aaron_std = std(aaron_max_region)
 
-group_data = [michael_max_region, fredrik_max_region, salaidh_max_region, aaron_max_region];
-group_mean = mean(group_data);
-group_std = std(group_data);
+group_max_force_data = [michael_max_region, fredrik_max_region, salaidh_max_region, aaron_max_region];
+group_max_data_force_mean = mean(group_max_force_data);
+group_max_data_std = std(group_max_force_data);
 
 % table generation
 force = {'Max (%)'};
@@ -229,8 +229,8 @@ michael = michael_max;
 fredrik = fredrik_max;
 salaidh = salaidh_max;
 aaron= aaron_max;
-average = group_mean;
-std = group_std;
+average = group_max_data_force_mean ;
+std = group_max_data_std;
 
 table2 = table(force, michael, fredrik, salaidh, aaron, average, std);
 %%
@@ -267,6 +267,19 @@ variance_closed_eyes_salaidh = var(salaidh_closed_eyes);
 aaron_closed_eyes = aaron.data(aaron.datastart(1, 8) + 200 : aaron.dataend(1, 8) - 230);
 t_aaron = [1:length(aaron_closed_eyes)] * dt;
 variance_closed_eyes_aaron = var(aaron_closed_eyes);
+
+% calculating group variance
+group_closed_eyes_data = [michael_closed_eyes, fredrik_closed_eyes, salaidh_closed_eyes, aaron_closed_eyes];
+group_closed_eyes_variance = var(group_closed_eyes_data);
+
+% variance table
+Variance = {'variance'};
+Michael = variance_closed_eyes_michael;
+Fredrik = variance_closed_eyes_fredrik;
+Salaidh = variance_closed_eyes_salaidh;
+Aaron= variance_closed_eyes_aaron;
+Group_variance = group_closed_eyes_variance;
+table3 = table(Variance, Michael, Fredrik, Salaidh, Aaron, Group_variance);
 
 % plotting 
 figure(4);
