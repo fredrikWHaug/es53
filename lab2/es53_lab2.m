@@ -163,6 +163,13 @@ er = errorbar(y,err);
 er.LineStyle = 'none';  
 
 hold off
+
+% Standard Deviations
+A = [aratio, aaratio, baratio];
+B = [bratio, abratio2, bbratio2];
+
+Bicep_S = std(A);
+Tricep_S = std(B);
 %%
 
 clear all
