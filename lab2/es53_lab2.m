@@ -5,6 +5,8 @@
 % Description: source code for lab 2
 %%
 
+clear all
+close all
 %% Figure 1
 b = load('Lab1_Ex2_Coby.mat');
 
@@ -217,13 +219,20 @@ aaron_max = max(aaron.data(aaron.datastart(1, 6) : aaron.dataend(1, 6)))
 aaron_mean = mean(aaron_max_region)
 aaron_std = std(aaron_max_region)
 
-% table generation
-name = {'Michael';'Fredrik';'Salaidh';'Aaron'};
-max_force_percent = [michael_max;fredrik_max;salaidh_max;aaron_max];
-mean_force = [michael_mean;fredrik_mean;salaidh_mean;aaron_mean];
-std = [michael_std;fredrik_std;salaidh_std;aaron_std];
+group_data = [michael_max_region, fredrik_max_region, salaidh_max_region, aaron_max_region];
+group_mean = mean(group_data);
+group_std = std(group_data);
 
-table2 = table(name, max_force_percent, mean_force, std);
+% table generation
+force = {'Max (%)'};
+michael = michael_max;
+fredrik = fredrik_max;
+salaidh = salaidh_max;
+aaron= aaron_max;
+average = group_mean;
+std = group_std;
+
+table2 = table(force, michael, fredrik, salaidh, aaron, average, std);
 %%
 
 %% 3.2
