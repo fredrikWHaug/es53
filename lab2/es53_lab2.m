@@ -219,9 +219,9 @@ aaron_max = max(aaron.data(aaron.datastart(1, 6) : aaron.dataend(1, 6)))
 aaron_mean = mean(aaron_max_region)
 aaron_std = std(aaron_max_region)
 
-group_data = [michael_max_region, fredrik_max_region, salaidh_max_region, aaron_max_region];
-group_mean = mean(group_data);
-group_std = std(group_data);
+group_max_force_data = [michael_max_region, fredrik_max_region, salaidh_max_region, aaron_max_region];
+group_max_data_force_mean = mean(group_data);
+group_max_data_std = std(group_data);
 
 % table generation
 force = {'Max (%)'};
