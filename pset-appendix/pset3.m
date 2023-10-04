@@ -35,7 +35,7 @@ xlabel('Time');
 ylabel('ECG data');
 
 % transpose the "best" ECG and transpose it to enable element-wise division
-best = transpose(smoothed_heart_1000);
+best = transpose(smoothed_heart_10);
 
 % define derivative of the best ECH
 derivative = diff(best) ./ diff(ptime);
@@ -64,7 +64,7 @@ trough_time = ptime(trough_indices); % define time accordingly for alignment
 % plot
 figure(2);
 hold on
-plot(ptime,smoothed_heart_1000);
+plot(ptime,smoothed_heart_10);
 scatter(peak_time, peaks, 'y', 's', 'filled');
 scatter(trough_time, troughs, 'y', 's', 'filled');
 hold off
