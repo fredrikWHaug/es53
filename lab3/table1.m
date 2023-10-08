@@ -1,13 +1,10 @@
+
 % R-R intervals for subject1
 subject1 = load('Lab3_Ex2_Sub1.mat');
 subject1_sitting = subject1.data(subject1.datastart(1, 1) : subject1.dataend(1,1));
 
-
 % define samplerate
 sr = subject1.samplerate(1);
-
-% time vector
-time = (0 : length(s1Sitting)-1) / sr;
 
 figure(1);
 e20 = subject1_sitting/max(subject1_sitting);
