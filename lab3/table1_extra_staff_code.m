@@ -6,24 +6,23 @@ subject1_sitting = subject1.data(subject1.datastart(1, 1) : subject1.dataend(1,1
 % define samplerate
 sr = subject1.samplerate(1);
 
-figure(1);
 e20 = subject1_sitting/max(subject1_sitting);
 de20 = diff(e20); %and the derivative of this vector
-plot(e20);
-title('ECG');
-xlabel('Time (s)'); %Fix this on your own
-ylabel('ECG');
 threshold = 0.8; %Adjust this on your own
-
-% here is one way of finding the peaks.
 ind = find((e20(2:end-1)>threshold)&(de20(1:end-1)>0)&(de20(2:end)<0))+1; % the indices of all peaks in the first 20 second segment
+
+%UNCOMMENT THIS FOR SECOND PLOT
+%figure(1);
+% plot(e20);
+% title('ECG');
+% xlabel('Time (s)'); %Fix this on your own
+% ylabel('ECG');
 hold on;
-plot(ind, e20(ind),'r*');
+%plot(ind, e20(ind),'r*');
 
 
 % now we need to create the corresponding time vector
-% S = samplerate(1);
-S = 1000;
+S = subject1.samplerate(1);
 dt = 1/S;
 time = (1:length(e20))/S;
 figure(2)
