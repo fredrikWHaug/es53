@@ -23,7 +23,7 @@ ind_2 = find((e20_2(2:end-1)>threshold)&(de20_2(1:end-1)>0)&(de20_2(2:end)<0))+1
 % subject3 peaks
 e20_3 = subject3_standing / max(subject3_standing);
 de20_3 = diff(e20_3); % derivative of this vector
-threshold = 0.8; % peak treshold
+threshold = 0.5; % peak treshold
 ind_3 = find((e20_3(2:end-1)>threshold)&(de20_3(1:end-1)>0)&(de20_3(2:end)<0))+1;
 
 % samplerate
@@ -34,9 +34,7 @@ time_1 = (1:length(e20_1))/S;
 figure(1);
 plot(time_1, e20_1);
 hold on
-plot(time_1(ind_1), e20_1(ind_1),'r*');
 xlabel('time (s)');
-% is this arbitrary units or volts?
 ylabel('Amplitude a.u.');
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
@@ -50,9 +48,7 @@ time_2 = (1:length(e20_2))/S;
 figure(2);
 plot(time_2, e20_2);
 hold on
-plot(time_2(ind_2), e20_2(ind_2),'r*');
 xlabel('time (s)');
-% is this arbitrary units or volts?
 ylabel('Amplitude a.u.');
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
@@ -66,9 +62,7 @@ time_3 = (1:length(e20_3))/S;
 figure(3);
 plot(time_3, e20_3);
 hold on
-plot(time_3(ind_3), e20_3(ind_3),'r*');
 xlabel('time (s)');
-% is this arbitrary units or volts?
 ylabel('Amplitude a.u.');
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
