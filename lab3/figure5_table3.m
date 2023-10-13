@@ -70,23 +70,22 @@ meanExerciseSub1 = mean(subject1_exercise(ind_111))
 stdExerciseSub1 = std(subject1_exercise(ind_111))
 
 % standing data
-meanStandingSub1 = mean(subject1_standing(ind_11));
-meanStandingSub2 = mean(subject2_standing(ind_12));
-meanStandingSub3 = mean(subject3_standing(ind_13));
+meanStandingSub1 = mean(subject1_standing(ind_11))
+meanStandingSub2 = mean(subject2_standing(ind_12))
+meanStandingSub3 = mean(subject3_standing(ind_13))
 
-stdStandingSub1 = std(subject1_standing(ind_11));
-stdStandingSub2 = std(subject2_standing(ind_12));
-stdStandingSub3 = std(subject3_standing(ind_13));
+stdStandingSub1 = std(subject1_standing(ind_11))
+stdStandingSub2 = std(subject2_standing(ind_12))
+stdStandingSub3 = std(subject3_standing(ind_13))
 
 % sitting data
-meanSittingSub1 = mean(subject1_sitting(ind_1));
-meanSittingSub2 = mean(subject2_sitting(ind_2));
-meanSittingSub3 = mean(subject3_sitting(ind_3));
+meanSittingSub1 = mean(subject1_sitting(ind_1))
+meanSittingSub2 = mean(subject2_sitting(ind_2))
+meanSittingSub3 = mean(subject3_sitting(ind_3))
 
-stdSittingSub1 = std(subject1_sitting(ind_1));
-stdSittingSub2 = std(subject2_sitting(ind_2));
-stdSittingSub3 = std(subject3_sitting(ind_3));
-
+stdSittingSub1 = std(subject1_sitting(ind_1))
+stdSittingSub2 = std(subject2_sitting(ind_2))
+stdSittingSub3 = std(subject3_sitting(ind_3))
 
 %% plot
 % plot 
