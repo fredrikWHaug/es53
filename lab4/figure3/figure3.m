@@ -1,6 +1,3 @@
-clear
-close all
-
 % load data and define samplerate 
 lydia = load('lydia_ex2.mat');
 sr = lydia.samplerate(1);
@@ -14,17 +11,17 @@ timel = (0 : length(lydia_blood_pressure)-1);
 figure(3);
 hold on
 subplot(2, 1, 1);
-plot(timel, lydia_blood_pressure);
-title("Lydia Blood Pressure")
-xlabel("Time (s) - REMEMBER TO CONFIGURE");
+plot(timel / sr, lydia_blood_pressure );
+title("Lydia Blood Pressure");
+xlabel("Time (s)");
 ylabel("Blood Pressure (mmHG)");
 hold off
 
 figure(3);
 hold on
 subplot(2, 1, 2);
-plot(timel, lydia_pulse);
-title("Lydia Pulse")
-xlabel("Time (s) REMEMBER TO CONFIGURE");
-ylabel("N/A");
+plot(timel / sr, lydia_pulse);
+title("Lydia Pulse");
+xlabel("Time (s)");
+ylabel("Pulse Wave Magnitude");
 hold off
