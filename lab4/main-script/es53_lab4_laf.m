@@ -121,7 +121,6 @@ std_group_map = std(group_map);
 %%
 
 %% Figure 4
-
 % section load in case it's helpful
 % fredrik = load('fredrik_ex2.mat');
 % abby = load('abby_ex2.mat');
