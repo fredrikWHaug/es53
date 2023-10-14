@@ -1,6 +1,3 @@
-clear
-close all
-
 % load data and define samplerate 
 fredrik = load('fredrik_ex2.mat');
 sr = fredrik.samplerate(1);
@@ -14,17 +11,17 @@ timef = (0 : length(fredrik_blood_pressure)-1);
 figure(1);
 hold on
 subplot(2, 1, 1);
-plot(timef, fredrik_blood_pressure);
-title("Fredrik Blood Pressure")
-xlabel("Time (s) - REMEMBER TO CONFIGURE");
+plot(timef / sr, fredrik_blood_pressure);
+title("Fredrik Blood Pressure");
+xlabel("Time (s)");
 ylabel("Blood Pressure (mmHG)");
 hold off
 
 figure(1);
 hold on
 subplot(2, 1, 2);
-plot(timef, fredrik_pulse);
-title("Fredrik Pulse")
-xlabel("Time (s) REMEMBER TO CONFIGURE");
-ylabel("N/A");
+plot(timef / sr, fredrik_pulse);
+title("Fredrik Pulse");
+xlabel("Time (s)");
+ylabel("Pulse Wave Magnitude");
 hold off
