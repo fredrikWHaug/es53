@@ -1,3 +1,6 @@
+clear
+close all
+
 % load data and define samplerate 
 abby = load('abby_ex2.mat');
 sr = abby.samplerate(1);
@@ -12,7 +15,6 @@ figure(2);
 hold on
 subplot(2, 1, 1);
 plot(timea / sr, abby_blood_pressure);
-title("Abby Blood Pressure");
 xlabel("Time (s)");
 ylabel("Blood Pressure (mmHG)");
 hold off
@@ -21,7 +23,6 @@ figure(2);
 hold on
 subplot(2, 1, 2);
 plot(timea / sr, abby_pulse);
-title("Abby Pulse")
 xlabel("Time (s)");
 ylabel("Pulse Wave Magnitude");
 hold off
