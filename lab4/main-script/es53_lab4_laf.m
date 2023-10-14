@@ -28,7 +28,6 @@ figure(1);
 hold on
 subplot(2, 1, 2);
 plot(timef / sr, fredrik_pulse);
-title("Fredrik Pulse");
 xlabel("Time (s)");
 ylabel("Pulse Wave Magnitude");
 hold off
