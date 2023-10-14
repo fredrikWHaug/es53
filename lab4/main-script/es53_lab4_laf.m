@@ -19,19 +19,19 @@ timef = (0 : length(fredrik_blood_pressure)-1);
 figure(1);
 hold on
 subplot(2, 1, 1);
-plot(timef, fredrik_blood_pressure);
-title("Fredrik Blood Pressure")
-xlabel("Time (s) - REMEMBER TO CONFIGURE");
+plot(timef / sr, fredrik_blood_pressure);
+title("Fredrik Blood Pressure");
+xlabel("Time (s)");
 ylabel("Blood Pressure (mmHG)");
 hold off
 
 figure(1);
 hold on
 subplot(2, 1, 2);
-plot(timef, fredrik_pulse);
-title("Fredrik Pulse")
-xlabel("Time (s) REMEMBER TO CONFIGURE");
-ylabel("N/A");
+plot(timef / sr, fredrik_pulse);
+title("Fredrik Pulse");
+xlabel("Time (s)");
+ylabel("Pulse Wave Magnitude");
 hold off
 %%
 
@@ -49,19 +49,19 @@ timea = (0 : length(abby_blood_pressure)-1);
 figure(2);
 hold on
 subplot(2, 1, 1);
-plot(timea, abby_blood_pressure);
-title("Abby Blood Pressure")
-xlabel("Time (s) - REMEMBER TO CONFIGURE");
+plot(timea / sr, abby_blood_pressure);
+title("Abby Blood Pressure");
+xlabel("Time (s)");
 ylabel("Blood Pressure (mmHG)");
 hold off
 
 figure(2);
 hold on
 subplot(2, 1, 2);
-plot(timea, abby_pulse);
+plot(timea / sr, abby_pulse);
 title("Abby Pulse")
-xlabel("Time (s) REMEMBER TO CONFIGURE");
-ylabel("N/A");
+xlabel("Time (s)");
+ylabel("Pulse Wave Magnitude");
 hold off
 %%
 
@@ -79,18 +79,23 @@ timel = (0 : length(lydia_blood_pressure)-1);
 figure(3);
 hold on
 subplot(2, 1, 1);
-plot(timel, lydia_blood_pressure);
-title("Lydia Blood Pressure")
-xlabel("Time (s) - REMEMBER TO CONFIGURE");
+plot(timel / sr, lydia_blood_pressure );
+title("Lydia Blood Pressure");
+xlabel("Time (s)");
 ylabel("Blood Pressure (mmHG)");
 hold off
 
 figure(3);
 hold on
 subplot(2, 1, 2);
-plot(timel, lydia_pulse);
-title("Lydia Pulse")
-xlabel("Time (s) REMEMBER TO CONFIGURE");
-ylabel("N/A");
+plot(timel / sr, lydia_pulse);
+title("Lydia Pulse");
+xlabel("Time (s)");
+ylabel("Pulse Wave Magnitude");
 hold off
+%%
+
+%% Fredrik Blood Pressure
+korotkoff_start = fredrik.data(fredrik.com(1, 3));
+korotkoff_end = fredrik.data(fredrik.com(2, 3));
 %%
