@@ -9,3 +9,4 @@ stroke_work = polyarea(pv_volume, pv_pressure);
 plot(pv_volume, pv_pressure);
 xlabel('Volume (ml)');
 ylabel('Pressure (mmHG)');
+axis([40 160 0 160]);
