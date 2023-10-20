@@ -128,10 +128,11 @@ std_group_map = std(group_map);
 % samplerate declaration
 S = fredrik.samplerate(1);
 
-% pulse for each subject
-fredrik_pulse = fredrik.data(fredrik.datastart(2, 1) : fredrik.dataend(2, 1));
-abby_pulse = abby.data(abby.datastart(2, 1) : abby.dataend(2, 1));
-lydia_pulse = lydia.data(lydia.datastart(2, 1) : lydia.dataend(2, 1));
+% pulse for each subject extracted when peaks are apparent due to present
+% pulse
+fredrik_pulse = fredrik.data(fredrik.datastart(2, 1) + 7*S: fredrik.datastart(2, 1) + 19*S);
+abby_pulse = abby.data(abby.datastart(2, 1) : abby.datastart(2, 1) + 13*S);
+lydia_pulse = lydia.data(lydia.datastart(2, 1) + 32*S : lydia.datastart(2, 1)+45*S);
 
 % fredrik peaks
 e20_1 = fredrik_pulse / max(fredrik_pulse);
@@ -158,7 +159,7 @@ subplot(3, 1, 1);
 plot(time_1, e20_1);
 hold on
 xlabel('time (s)');
-ylabel('Pulse Wave Magnitude');
+ylabel('PWM Fredrik');
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = S/2;
@@ -173,7 +174,7 @@ subplot(3, 1, 2);
 plot(timea, e20_abby);
 hold on
 xlabel('time (s)');
-ylabel('Pulse Wave Magnitude');
+ylabel('PWM Abby');
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = S/2;
@@ -188,11 +189,29 @@ subplot(3, 1, 3);
 plot(timel, e20_lydia);
 hold on
 xlabel('Time (s)');
-ylabel('Pulse Wave Magnitude');
+ylabel('PWM Lydia');
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = S/2;
 [~,locs_Rwave_s3] = findpeaks(e20_lydia,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 plot(timel(locs_Rwave_s3), e20_lydia(locs_Rwave_s3),'r*');
 hold off
+
+
+% heart rate calculations
+
+% fredrik
+peak_interval_f = diff(locs_Rwave_s1) / S;
+mean_peak_interval_f = mean(peak_interval_f);
+mean_heart_rate_fredrik = 60 / mean_peak_interval_f
+
+% abby
+peak_interval_a = diff(locs_Rwave_s2) / S;
+mean_peak_interval_a = mean(peak_interval_a);
+mean_heart_rate_abby = 60 / mean_peak_interval_a
+
+% lydia
+peak_interval_l = diff(locs_Rwave_s3) / S;
+mean_peak_interval_l = mean(peak_interval_l);
+mean_heart_rate_lydia = 60 / mean_peak_interval_l
 %%
