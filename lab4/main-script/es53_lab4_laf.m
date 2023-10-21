@@ -128,6 +128,15 @@ std_group_map = std(group_map);
 % samplerate declaration
 S = fredrik.samplerate(1);
 
+% NB! Plot in report includes all data because it resembles the 
+% type of plot in the lab handout swithch the comments for the two
+% blocks below to get either full data plot or only peak relevant for
+% HR and discard HR calculations if using first block for general plot
+
+% fredrik_pulse = fredrik.data(fredrik.datastart(2, 1): fredrik.dataend(2, 1));
+% abby_pulse = abby.data(abby.datastart(2, 1) : abby.dataend(2, 1));
+% lydia_pulse = lydia.data(lydia.datastart(2, 1) : lydia.dataend(2, 1));
+
 % pulse for each subject extracted when peaks are apparent due to present
 % pulse
 fredrik_pulse = fredrik.data(fredrik.datastart(2, 1) + 7*S: fredrik.datastart(2, 1) + 19*S);
