@@ -156,7 +156,6 @@ time_1 = (1:length(e20_1))/S;
 figure(1);
 plot(time_1, e20_1);
 hold on
-title('Subject 1 sitting R peaks');
 xlabel('time (s)');
 ylabel('Amplitude a.u.');
 axis([0 10 -1.1 1.1]);
@@ -171,7 +170,6 @@ time_2 = (1:length(e20_2))/S;
 figure(2);
 plot(time_2, e20_2);
 hold on
-title('Subject 2 sitting R peaks');
 xlabel('time (s)');
 ylabel('Amplitude a.u.');
 axis([0 10 -1.1 1.1]);
@@ -186,7 +184,6 @@ time_3 = (1:length(e20_3))/S;
 figure(3);
 plot(time_3, e20_3);
 hold on
-title('Subject 3 sitting R peaks');
 xlabel('time (s)');
 ylabel('Amplitude a.u.');
 axis([0 10 -1.1 1.1]);
