@@ -34,10 +34,10 @@ hold off
 %%
 
 %% Figure 2
-% re-load data from all subjects if helpful
-% subject1 = load('Lab3_Ex2_Sub1.mat');
-% subject2 = load('Lab3_Ex2_Sub2.mat');
-% subject3 = load('Lab3_Ex2_Sub3.mat');
+% load data from all subjects if helpful
+subject1 = load('Lab3_Ex2_Sub1.mat');
+subject2 = load('Lab3_Ex2_Sub2.mat');
+subject3 = load('Lab3_Ex2_Sub3.mat');
 
 % extract samplerate to get time
 sr = subject1.samplerate(1);
@@ -106,6 +106,7 @@ time_standing = (0 : length(standing)-1);
 time_post_exercise = (0 : length(post_exercise)-1);
 
 % plot
+figure(4);
 hold on
 plot(time_sitting, sitting);
 plot(time_standing, standing);
