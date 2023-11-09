@@ -102,52 +102,76 @@ fredrik_flow_volume_difference_mean = abs(mean(fredrik_volume - fredrik_integrat
 %%
 
 %% Respiratory Rate
-% benji
-benji_volume = benji.data(benji.datastart(2, 1) : benji.datastart(2, 1) + 60 * sample_rate);
-e20_benji = benji_volume / max(benji_volume);
-de20_benji = diff(e20_benji); % derivative of this vector
-threshold = -20; % peak treshold
-ind_benji = find((e20_benji(2:end-1)>threshold)&(de20_benji(1:end-1)>0)&(de20_benji(2:end)<0))+1;
 
-% reference tidal inspiration line
-benji_volume(peak).abs() + benji(trough).abs()
+% 60 second data load for ease of calculation
+benji_volume_60 = benji.data(benji.datastart(2, 4) : benji.datastart(2, 4) + (60 * sample_rate));
+chris_volume_60 = chris.data(chris.datastart(2, 1) : chris.datastart(2, 1) + (60 * sample_rate));
+fredrik_volume_60 = fredrik.data(fredrik.datastart(2, 1) : fredrik.datastart(2, 1) + (60 * sample_rate));
+
+% peak finding benji
+% benji
+e_benji = benji_volume_60 / max(benji_volume_60);
+de_benji = diff(e_benji); % derivative of this vector
+threshold = 0.1; % empirical peak treshold
+ind_benji = find((e_benji(2:end-1)>threshold)&(de_benji(1:end-1)>0)&(de_benji(2:end)<0))+1;
 
 % plot
-time_benji = (1:length(e20_benji))/sample_rate;
-figure(4);
-subplot(3, 1, 1);
-plot(time_1, e20_1);
+time_benji = (1:length(e_benji))/sample_rate;
+figure(2);
+plot(time_benji, e_benji);
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = sample_rate;
-[~,locs_peak_benji] = findpeaks(e20_1,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_benji(locs_peak_benji), e20_1(locs_peak_benji),'r*');
+[~,benji_volume_peaks] = findpeaks(e_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_benji(benji_volume_peaks), e_benji(benji_volume_peaks),'r*');
 hold off
 
-% % chris
-% chris_volume = chris.data(chris.datastart(2, 1) : chris.datastart(2, 1) + 60 * sample_rate);
-% e20_1 = chris_volume / max(chris_volume);
-% de20_1 = diff(e20_1); % derivative of this vector
-% threshold = -15; % peak treshold
-% ind_1 = find((e20_1(2:end-1)>threshold)&(de20_1(1:end-1)>0)&(de20_1(2:end)<0))+1;
-% 
-% % plot
-% time_1 = (1:length(e20_1))/sample_rate;
-% figure(4);
-% subplot(3, 1, 1);
-% plot(time_1, e20_1);
-% hold on
-% axis([0 10 -1.1 1.1]);
-% MPH = threshold;
-% MPD = sample_rate;
-% [~,locs_Rwave_s1] = findpeaks(e20_1,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-% plot(time_1(locs_Rwave_s1), e20_1(locs_Rwave_s1),'r*');
-% hold off
-% 
-% chris_respiratory_rate = length(locs_Rwave_s1)
+% peak finding chris
+e_chris = chris_volume_60 / max(chris_volume_60);
+de_chris = diff(e_chris); % derivative of this vector
+threshold = -12; % empirical peak treshold
+ind_chris = find((e_chris(2:end-1)>threshold)&(de_chris(1:end-1)>0)&(de_chris(2:end)<0))+1;
 
-benji_respiratory_rate = length(locs_peak_benji)
+% plot
+time_chris = (1:length(e_chris))/sample_rate;
+figure(3);
+plot(time_chris, e_chris);
+hold on
+axis([0 10 -1.1 1.1]);
+MPH = threshold;
+MPD = sample_rate;
+[~,chris_volume_peaks] = findpeaks(e_chris,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_chris(chris_volume_peaks), e_chris(chris_volume_peaks),'r*');
+hold off
+
+% peak finding fredrik
+e_fredrik = fredrik_volume_60 / max(fredrik_volume_60);
+de_fredrik = diff(e_fredrik); % derivative of this vector
+threshold = -2; % empirical peak treshold
+ind_fredrik = find((e_fredrik(2:end-1)>threshold)&(de_fredrik(1:end-1)>0)&(de_fredrik(2:end)<0))+1;
+
+% plot
+time_fredrik = (1:length(e_fredrik))/sample_rate;
+figure(4);
+plot(time_fredrik, e_fredrik);
+hold on
+axis([0 10 -1.1 1.1]);
+MPH = threshold;
+MPD = sample_rate;
+[~,fredrik_volume_peaks] = findpeaks(e_fredrik,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_fredrik(fredrik_volume_peaks), e_fredrik(fredrik_volume_peaks),'r*');
+hold off
+
+% resperatory rates
+benji_respiratory_rate = length(benji_volume_peaks)
+chris_respiratory_rate = length(chris_volume_peaks)
+fredrik_respiratory_rate = length(fredrik_volume_peaks)
+
+% mean and standard deviation for respiratory rate
+group_values = [benji_respiratory_rate, chris_respiratory_rate, fredrik_respiratory_rate];
+mean_group_values = mean(group_values)
+std_group_values = std(group_values)
 %%
 
 %% Tital Inspiration
