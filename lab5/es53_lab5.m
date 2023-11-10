@@ -207,7 +207,6 @@ MPD = 7 * sample_rate;
 plot(time_benji_trough(benji_trough_peaks), e20_benji_trough(benji_trough_peaks),'r*');
 axis([0 10 -1.1 1.1]);
 hold off
-%%
 % peak indices for chris
 chris_volume = chris.data(chris.datastart(2, 1) : chris.dataend(2, 1));
 e20_chris = chris_volume / max(chris_volume);
@@ -229,7 +228,7 @@ hold off
 chris_trough = chris_volume * -1;
 e20_chris_trough = chris_trough / max(chris_trough);
 de20_chris_trough = diff(e20_chris_trough); % derivative of this vector
-threshold = 0; % peak treshold
+threshold = 0.3; % peak treshold
 ind_chris_trough = find((e20_chris_trough(2:end-1)>threshold)&(de20_chris_trough(1:end-1)>0)&(de20_chris_trough(2:end)<0))+1;
 time_chris_trough = (1:length(e20_chris_trough))/sample_rate;
 figure(8);
@@ -241,7 +240,6 @@ MPD = 7 * sample_rate;
 plot(time_chris_trough(chris_trough_peaks), e20_chris_trough(chris_trough_peaks),'r*');
 axis([0 10 -1.1 1.1]);
 hold off
-%%
 % peak indices for fredrik
 fredrik_volume = fredrik.data(fredrik.datastart(2, 1) : fredrik.dataend(2, 1));
 e20_fredrik = fredrik_volume / max(fredrik_volume);
