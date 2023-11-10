@@ -1,8 +1,8 @@
-%% ENG-SCI 53 Lab 5
-% Filename: es53_lab5.m
+%% ENG-SCI 53 Lab 6
+% Filename: es53_lab6.m
 % Author: Chris Kim, Benjamin Brenner, Fredrik Willumsen Haug
-% Created: November 4th
-% Description: ECG and Blood Volume Pulse
+% Created: November 10th
+% Description: Respiration II: Hyperventilation, Rebreathing and Oxygen Saturation
 %%
 
 %% Figure 1
