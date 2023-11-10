@@ -102,7 +102,6 @@ fredrik_flow_volume_difference_mean = abs(mean(fredrik_volume - fredrik_integrat
 %%
 
 %% Respiratory Rate
-
 % 60 second data load for ease of calculation
 benji_volume_60 = benji.data(benji.datastart(2, 4) : benji.datastart(2, 4) + (60 * sample_rate));
 chris_volume_60 = chris.data(chris.datastart(2, 1) : chris.datastart(2, 1) + (60 * sample_rate));
@@ -209,53 +208,118 @@ plot(time_benji_trough(benji_trough_peaks), e20_benji_trough(benji_trough_peaks)
 axis([0 10 -1.1 1.1]);
 hold off
 
-% peak indices for benji
-benji_volume = benji.data(benji.datastart(2, 4) : benji.dataend(2, 4));
-e20_benji = benji_volume / max(benji_volume);
-de20_benji = diff(e20_benji); % derivative of this vector
+% peak indices for chris
+chris_volume = chris.data(chris.datastart(2, 1) : chris.dataend(2, 1));
+e20_chris = chris_volume / max(chris_volume);
+de20_chris = diff(e20_chris); % derivative of this vector
 threshold = 0.1; % emperically determined peak treshold
-ind_benji = find((e20_benji(2:end-1)>threshold)&(de20_benji(1:end-1)>0)&(de20_benji(2:end)<0))+1;
-time_benji = (1:length(e20_benji))/sample_rate;
-figure(5);
-plot(time_benji, e20_benji);
+ind_chris = find((e20_chris(2:end-1)>threshold)&(de20_chris(1:end-1)>0)&(de20_chris(2:end)<0))+1;
+time_chris = (1:length(e20_chris))/sample_rate;
+figure(7);
+plot(time_chris, e20_chris);
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = 7 * sample_rate;
-[~,benji_top_peaks] = findpeaks(e20_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_benji(benji_top_peaks), e20_benji(benji_top_peaks),'r*');
+[~,chris_top_peaks] = findpeaks(e20_chris,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_chris(chris_top_peaks), e20_chris(chris_top_peaks),'r*');
 hold off
 
-% bottom peak indices for benji
-benji_trough = benji_volume * -1;
-e20_benji_trough = benji_trough / max(benji_trough);
-de20_benji_trough = diff(e20_benji_trough); % derivative of this vector
+% trough indices for chris
+chris_trough = chris_volume * -1;
+e20_chris_trough = chris_trough / max(chris_trough);
+de20_chris_trough = diff(e20_chris_trough); % derivative of this vector
 threshold = 0; % peak treshold
-ind_benji_trough = find((e20_benji_trough(2:end-1)>threshold)&(de20_benji_trough(1:end-1)>0)&(de20_benji_trough(2:end)<0))+1;
-time_benji_trough = (1:length(e20_benji_trough))/sample_rate;
-figure(6);
-plot(time_benji_trough, e20_benji_trough);
+ind_chris_trough = find((e20_chris_trough(2:end-1)>threshold)&(de20_chris_trough(1:end-1)>0)&(de20_chris_trough(2:end)<0))+1;
+time_chris_trough = (1:length(e20_chris_trough))/sample_rate;
+figure(8);
+plot(time_chris_trough, e20_chris_trough);
 hold on
 MPH = threshold;
 MPD = 7 * sample_rate;
-[~,benji_trough_peaks] = findpeaks(e20_benji_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_benji_trough(benji_trough_peaks), e20_benji_trough(benji_trough_peaks),'r*');
+[~,chris_trough_peaks] = findpeaks(e20_chris_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_chris_trough(chris_trough_peaks), e20_chris_trough(chris_trough_peaks),'r*');
+axis([0 10 -1.1 1.1]);
+hold off
+
+% peak indices for fredrik
+fredrik_volume = fredrik.data(fredrik.datastart(2, 1) : fredrik.dataend(2, 1));
+e20_fredrik = fredrik_volume / max(fredrik_volume);
+de20_fredrik = diff(e20_fredrik); % derivative of this vector
+threshold = 0.1; % emperically determined peak treshold
+ind_fredrik = find((e20_fredrik(2:end-1)>threshold)&(de20_fredrik(1:end-1)>0)&(de20_fredrik(2:end)<0))+1;
+time_fredrik = (1:length(e20_fredrik))/sample_rate;
+figure(9);
+plot(time_fredrik, e20_fredrik);
+hold on
+axis([0 10 -1.1 1.1]);
+MPH = threshold;
+MPD = 7 * sample_rate;
+[~,fredrik_top_peaks] = findpeaks(e20_fredrik,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_fredrik(fredrik_top_peaks), e20_fredrik(fredrik_top_peaks),'r*');
+hold off
+
+% trough indices for fredrik
+fredrik_trough = fredrik_volume * -1;
+e20_fredrik_trough = fredrik_trough / max(fredrik_trough);
+de20_fredrik_trough = diff(e20_fredrik_trough); % derivative of this vector
+threshold = 0; % peak treshold
+ind_fredrik_trough = find((e20_fredrik_trough(2:end-1)>threshold)&(de20_fredrik_trough(1:end-1)>0)&(de20_fredrik_trough(2:end)<0))+1;
+time_fredrik_trough = (1:length(e20_fredrik_trough))/sample_rate;
+figure(10);
+plot(time_fredrik_trough, e20_fredrik_trough);
+hold on
+MPH = threshold;
+MPD = 7 * sample_rate;
+[~,fredrik_trough_peaks] = findpeaks(e20_fredrik_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_fredrik_trough(fredrik_trough_peaks), e20_fredrik_trough(fredrik_trough_peaks),'r*');
 axis([0 10 -1.1 1.1]);
 hold off
 
 benji_troughs = benji_volume(benji_trough_peaks);
 benji_tops = benji_volume(benji_top_peaks);
 benji_tidal_volume = benji_tops - benji_troughs;
-mean_tv_benji = mean(tidal_volume_benji);
+benji_mean_tidal_volume = mean(benji_tidal_volume);
+
+chris_troughs = chris_volume(chris_trough_peaks);
+chris_tops = chris_volume(chris_top_peaks);
+chris_tidal_volume = chris_tops - chris_troughs;
+chris_mean_tidal_volume = mean(chris_tidal_volume);
+
+fredrik_troughs = fredrik_volume(fredrik_trough_peaks);
+fredrik_tops = fredrik_volume(fredrik_top_peaks);
+fredrik_tidal_volume = fredrik_tops - fredrik_troughs;
+fredrik_mean_tidal_volume = mean(fredrik_tidal_volume);
 %%
 
 %% IRV
 % benji IRV
-benji_normal_inhale = benji_volume(benji_top_peak(1)); % take average and subt
+benji_normal_inhale = mean(benji_tops);
 benji_max_inhale = max(benji_volume);
 benji_IRV = benji_max_inhale - benji_normal_inhale;
 
-benji_normal_exhale = abs(benji_volume(benji_bottom_peak(1)));
+% benji ERV
+benji_normal_exhale = abs(mean(benji_troughs));
 benji_max_exhale = abs(min(benji_volume));
 benji_ERV = benji_max_exhale - benji_normal_exhale;
+
+% chris IRV
+chris_normal_inhale = mean(chris_tops);
+chris_max_inhale = max(chris_volume);
+chris_IRV = chris_max_inhale - chris_normal_inhale;
+
+% chris ERV
+chris_normal_exhale = abs(mean(chris_troughs));
+chris_max_exhale = abs(min(chris_volume));
+chris_ERV = chris_max_exhale - chris_normal_exhale;
+
+% fredrik IRV
+fredrik_normal_inhale = mean(fredrik_tops);
+fredrik_max_inhale = max(fredrik_volume);
+fredrik_IRV = fredrik_max_inhale - fredrik_normal_inhale;
+
+% fredrik ERV
+fredrik_normal_exhale = abs(mean(fredrik_troughs));
+fredrik_max_exhale = abs(min(fredrik_volume));
+fredrik_ERV = fredrik_max_exhale - fredrik_normal_exhale;
 %%
