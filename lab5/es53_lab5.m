@@ -207,12 +207,12 @@ MPD = 7 * sample_rate;
 plot(time_benji_trough(benji_trough_peaks), e20_benji_trough(benji_trough_peaks),'r*');
 axis([0 10 -1.1 1.1]);
 hold off
-
+%%
 % peak indices for chris
 chris_volume = chris.data(chris.datastart(2, 1) : chris.dataend(2, 1));
 e20_chris = chris_volume / max(chris_volume);
 de20_chris = diff(e20_chris); % derivative of this vector
-threshold = 0.1; % emperically determined peak treshold
+threshold = -1.5; % emperically determined peak treshold
 ind_chris = find((e20_chris(2:end-1)>threshold)&(de20_chris(1:end-1)>0)&(de20_chris(2:end)<0))+1;
 time_chris = (1:length(e20_chris))/sample_rate;
 figure(7);
@@ -220,7 +220,7 @@ plot(time_chris, e20_chris);
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
-MPD = 7 * sample_rate;
+MPD = 3 * sample_rate;
 [~,chris_top_peaks] = findpeaks(e20_chris,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 plot(time_chris(chris_top_peaks), e20_chris(chris_top_peaks),'r*');
 hold off
@@ -241,12 +241,12 @@ MPD = 7 * sample_rate;
 plot(time_chris_trough(chris_trough_peaks), e20_chris_trough(chris_trough_peaks),'r*');
 axis([0 10 -1.1 1.1]);
 hold off
-
+%%
 % peak indices for fredrik
 fredrik_volume = fredrik.data(fredrik.datastart(2, 1) : fredrik.dataend(2, 1));
 e20_fredrik = fredrik_volume / max(fredrik_volume);
 de20_fredrik = diff(e20_fredrik); % derivative of this vector
-threshold = 0.1; % emperically determined peak treshold
+threshold = -3.5; % emperically determined peak treshold
 ind_fredrik = find((e20_fredrik(2:end-1)>threshold)&(de20_fredrik(1:end-1)>0)&(de20_fredrik(2:end)<0))+1;
 time_fredrik = (1:length(e20_fredrik))/sample_rate;
 figure(9);
@@ -254,7 +254,7 @@ plot(time_fredrik, e20_fredrik);
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
-MPD = 7 * sample_rate;
+MPD = 3 * sample_rate;
 [~,fredrik_top_peaks] = findpeaks(e20_fredrik,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 plot(time_fredrik(fredrik_top_peaks), e20_fredrik(fredrik_top_peaks),'r*');
 hold off
@@ -263,14 +263,14 @@ hold off
 fredrik_trough = fredrik_volume * -1;
 e20_fredrik_trough = fredrik_trough / max(fredrik_trough);
 de20_fredrik_trough = diff(e20_fredrik_trough); % derivative of this vector
-threshold = 0; % peak treshold
+threshold = -0.15; % peak treshold
 ind_fredrik_trough = find((e20_fredrik_trough(2:end-1)>threshold)&(de20_fredrik_trough(1:end-1)>0)&(de20_fredrik_trough(2:end)<0))+1;
 time_fredrik_trough = (1:length(e20_fredrik_trough))/sample_rate;
 figure(10);
 plot(time_fredrik_trough, e20_fredrik_trough);
 hold on
 MPH = threshold;
-MPD = 7 * sample_rate;
+MPD = 3.5 * sample_rate;
 [~,fredrik_trough_peaks] = findpeaks(e20_fredrik_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 plot(time_fredrik_trough(fredrik_trough_peaks), e20_fredrik_trough(fredrik_trough_peaks),'r*');
 axis([0 10 -1.1 1.1]);
