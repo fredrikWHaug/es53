@@ -103,5 +103,14 @@ ylabel('Voltage (mV)');
 %%
 
 %% Average Breathing Rate
-
+% benji
+% average brathing rate during normal breathing
+% you might be onto something, but not sure here
+% I need to understand this. Also, can just be re used. Not much left of
+% this lab.
+[pks, locs] = findpeaks(benji_normal_breathing);
+time_benji = time_benji_normal(locs);
+time_interval = diff(time_benji);
+breathing_rate = 1 ./ time_interval * sample_rate;
+mean_breathing_rate = mean(breathing_rate);
 %%
