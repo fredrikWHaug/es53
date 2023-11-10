@@ -112,7 +112,7 @@ fredrik_volume_60 = fredrik.data(fredrik.datastart(2, 1) : fredrik.datastart(2, 
 % benji
 e_benji = benji_volume_60 / max(benji_volume_60);
 de_benji = diff(e_benji); % derivative of this vector
-threshold = 0.1; % empirical peak treshold
+threshold = 0.5; % empirical peak treshold
 ind_benji = find((e_benji(2:end-1)>threshold)&(de_benji(1:end-1)>0)&(de_benji(2:end)<0))+1;
 
 % plot
@@ -122,7 +122,7 @@ plot(time_benji, e_benji);
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
-MPD = sample_rate;
+MPD = 2 * sample_rate;
 [~,benji_volume_peaks] = findpeaks(e_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 plot(time_benji(benji_volume_peaks), e_benji(benji_volume_peaks),'r*');
 hold off
@@ -140,7 +140,7 @@ plot(time_chris, e_chris);
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
-MPD = sample_rate;
+MPD = 2 * sample_rate;
 [~,chris_volume_peaks] = findpeaks(e_chris,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 plot(time_chris(chris_volume_peaks), e_chris(chris_volume_peaks),'r*');
 hold off
@@ -158,7 +158,7 @@ plot(time_fredrik, e_fredrik);
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
-MPD = sample_rate;
+MPD = 2 * sample_rate;
 [~,fredrik_volume_peaks] = findpeaks(e_fredrik,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 plot(time_fredrik(fredrik_volume_peaks), e_fredrik(fredrik_volume_peaks),'r*');
 hold off
@@ -174,56 +174,88 @@ mean_group_values = mean(group_values)
 std_group_values = std(group_values)
 %%
 
-%% Tital Inspiration
+%% Tidal Inspiration
 % peak indices for benji
 benji_volume = benji.data(benji.datastart(2, 4) : benji.dataend(2, 4));
 e20_benji = benji_volume / max(benji_volume);
 de20_benji = diff(e20_benji); % derivative of this vector
-threshold = 0.4; % peak treshold
+threshold = 0.1; % emperically determined peak treshold
 ind_benji = find((e20_benji(2:end-1)>threshold)&(de20_benji(1:end-1)>0)&(de20_benji(2:end)<0))+1;
 time_benji = (1:length(e20_benji))/sample_rate;
-figure(4);
+figure(5);
 plot(time_benji, e20_benji);
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
-MPD = sample_rate;
-[~,benji_top_peak] = findpeaks(e20_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_benji(benji_top_peak), e20_benji(benji_top_peak),'r*');
+MPD = 7 * sample_rate;
+[~,benji_top_peaks] = findpeaks(e20_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_benji(benji_top_peaks), e20_benji(benji_top_peaks),'r*');
 hold off
 
 % bottom peak indices for benji
-benji_bottom = benji_volume * -1;
-e20_benji_bottom = benji_bottom / max(benji_bottom);
-de20_benji_bottom = diff(e20_benji_bottom); % derivative of this vector
-threshold = -0; % peak treshold
-ind_benji_bottom = find((e20_benji_bottom(2:end-1)>threshold)&(de20_benji_bottom(1:end-1)>0)&(de20_benji_bottom(2:end)<0))+1;
-time_benji_bottom = (1:length(e20_benji_bottom))/sample_rate;
+benji_trough = benji_volume * -1;
+e20_benji_trough = benji_trough / max(benji_trough);
+de20_benji_trough = diff(e20_benji_trough); % derivative of this vector
+threshold = 0; % peak treshold
+ind_benji_trough = find((e20_benji_trough(2:end-1)>threshold)&(de20_benji_trough(1:end-1)>0)&(de20_benji_trough(2:end)<0))+1;
+time_benji_trough = (1:length(e20_benji_trough))/sample_rate;
+figure(6);
+plot(time_benji_trough, e20_benji_trough);
+hold on
+MPH = threshold;
+MPD = 7 * sample_rate;
+[~,benji_trough_peaks] = findpeaks(e20_benji_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_benji_trough(benji_trough_peaks), e20_benji_trough(benji_trough_peaks),'r*');
+axis([0 10 -1.1 1.1]);
+hold off
+
+% peak indices for benji
+benji_volume = benji.data(benji.datastart(2, 4) : benji.dataend(2, 4));
+e20_benji = benji_volume / max(benji_volume);
+de20_benji = diff(e20_benji); % derivative of this vector
+threshold = 0.1; % emperically determined peak treshold
+ind_benji = find((e20_benji(2:end-1)>threshold)&(de20_benji(1:end-1)>0)&(de20_benji(2:end)<0))+1;
+time_benji = (1:length(e20_benji))/sample_rate;
 figure(5);
-plot(time_benji_bottom, e20_benji_bottom);
+plot(time_benji, e20_benji);
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
-MPD = sample_rate;
-[~,benji_bottom_peak] = findpeaks(e20_benji_bottom,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_benji_bottom(benji_bottom_peak), e20_benji_bottom(benji_bottom_peak),'r*');
+MPD = 7 * sample_rate;
+[~,benji_top_peaks] = findpeaks(e20_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_benji(benji_top_peaks), e20_benji(benji_top_peaks),'r*');
 hold off
 
-benji_tidal_inspirations = [];
-for i = 1:8
-    inspiration = abs(benji_volume(benji_top_peak(i))) + abs(benji_volume(benji_bottom_peak(i)));
-    benji_tidal_inspirations = [benji_tidal_inspirations, inspiration];
-end
-benji_mean_tidal_respiration = mean(benji_tidal_inspirations);
+% bottom peak indices for benji
+benji_trough = benji_volume * -1;
+e20_benji_trough = benji_trough / max(benji_trough);
+de20_benji_trough = diff(e20_benji_trough); % derivative of this vector
+threshold = 0; % peak treshold
+ind_benji_trough = find((e20_benji_trough(2:end-1)>threshold)&(de20_benji_trough(1:end-1)>0)&(de20_benji_trough(2:end)<0))+1;
+time_benji_trough = (1:length(e20_benji_trough))/sample_rate;
+figure(6);
+plot(time_benji_trough, e20_benji_trough);
+hold on
+MPH = threshold;
+MPD = 7 * sample_rate;
+[~,benji_trough_peaks] = findpeaks(e20_benji_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_benji_trough(benji_trough_peaks), e20_benji_trough(benji_trough_peaks),'r*');
+axis([0 10 -1.1 1.1]);
+hold off
+
+benji_troughs = benji_volume(benji_trough_peaks);
+benji_tops = benji_volume(benji_top_peaks);
+benji_tidal_volume = benji_tops - benji_troughs;
+mean_tv_benji = mean(tidal_volume_benji);
 %%
 
 %% IRV
 % benji IRV
-benji_normal_inhale = benji_volume(benji_top_peak(1));
+benji_normal_inhale = benji_volume(benji_top_peak(1)); % take average and subt
 benji_max_inhale = max(benji_volume);
 benji_IRV = benji_max_inhale - benji_normal_inhale;
 
 benji_normal_exhale = abs(benji_volume(benji_bottom_peak(1)));
 benji_max_exhale = abs(min(benji_volume));
-benji_ERV = benji_normal_exhale + benji_max_exhale;
+benji_ERV = benji_max_exhale - benji_normal_exhale;
 %%
