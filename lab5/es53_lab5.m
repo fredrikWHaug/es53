@@ -207,6 +207,7 @@ MPD = 7 * sample_rate;
 plot(time_benji_trough(benji_trough_peaks), e20_benji_trough(benji_trough_peaks),'r*');
 axis([0 10 -1.1 1.1]);
 hold off
+
 % peak indices for chris
 chris_volume = chris.data(chris.datastart(2, 1) : chris.dataend(2, 1));
 e20_chris = chris_volume / max(chris_volume);
@@ -235,11 +236,12 @@ figure(8);
 plot(time_chris_trough, e20_chris_trough);
 hold on
 MPH = threshold;
-MPD = 7 * sample_rate;
+MPD = 3 * sample_rate;
 [~,chris_trough_peaks] = findpeaks(e20_chris_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 plot(time_chris_trough(chris_trough_peaks), e20_chris_trough(chris_trough_peaks),'r*');
 axis([0 10 -1.1 1.1]);
 hold off
+
 % peak indices for fredrik
 fredrik_volume = fredrik.data(fredrik.datastart(2, 1) : fredrik.dataend(2, 1));
 e20_fredrik = fredrik_volume / max(fredrik_volume);
@@ -288,6 +290,10 @@ fredrik_troughs = fredrik_volume(fredrik_trough_peaks);
 fredrik_tops = fredrik_volume(fredrik_top_peaks);
 fredrik_tidal_volume = fredrik_tops - fredrik_troughs;
 fredrik_mean_tidal_volume = mean(fredrik_tidal_volume);
+
+group_tidal_volumes = [benji_mean_tidal_volume, chris_mean_tidal_volume, fredrik_mean_tidal_volume];
+group_mean_tidal_volumes = mean(group_tidal_volumes);
+group_std_tidal_volumes = std(group_tidal_volumes);
 %%
 
 %% IRV
