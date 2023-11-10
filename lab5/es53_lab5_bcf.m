@@ -423,6 +423,7 @@ group_FRC_std = std(group_FRC)
 %%
 
 %% Figure 2 Table 2
+%% Exercise 3:
 % Figure 2 Volume graph
 % creating cut Benji data
 bdata = load('es53_lab5_benji.mat');
@@ -466,7 +467,6 @@ cind13 = cdata.datastart(2,4);
 cind23 = cdata.dataend(2,4);
 ccutdata13 = cdata.data(cind13:cind23);
 ctime13 = (1:length(cdata.data(cind13:cind23)))/cdata.samplerate(1);
-
 %% Figure 2 Flow Graph
 %cut benji data
 bind3 = bdata.datastart(1,5);
@@ -527,9 +527,8 @@ ylabel('Volume (L)')
 xlim([0 length(ccutdata1)/cdata.samplerate(1)])
 legend('Benji','Chris','Fredrik')
 hold off
-
 %% Table 2
-stomin = (1/60);
+stomin = (60);
 %calculate PIF
 cPIF1 = max(ccutdata2) * (stomin);
 cPIF2 = max(ccutdata22) * (stomin);
@@ -597,6 +596,7 @@ cmeanFEV = mean([cFEV1,cFEV2,cFEV3]);
 cratio = (cmeanFEV / cmeanFVC) * 100;
 stdratio = std([bratio,cratio,fratio]);
 meanratio = mean([bratio,cratio,fratio]);
+
 %%
 %%
 
