@@ -63,9 +63,9 @@ subplot(3, 2, 2);
 plot(time_benji_volume, benji_volume, 'r');
 hold on
 plot(time_benji_flow, benji_integrated_flow, 'b');
-hold off
 xlabel('Time (s)');
 ylabel('Volume (L)');
+legend('Labchart', 'Integral');
 
 subplot(3, 2, 3);
 plot(time_chris_flow, chris_flow);
@@ -76,9 +76,9 @@ subplot(3, 2, 4);
 plot(time_chris_volume, chris_volume, 'r');
 hold on
 plot(time_chris_flow, chris_integrated_flow, 'b');
-hold off
 xlabel('Time (s)');
 ylabel('Volume (L)');
+legend('Labchart', 'Integral');
 
 subplot(3, 2, 5);
 plot(time_fredrik_flow, fredrik_flow);
@@ -89,10 +89,9 @@ subplot(3, 2, 6);
 plot(time_fredrik_volume, fredrik_volume, 'r');
 hold on
 plot(time_fredrik_flow, fredrik_integrated_flow, 'b');
-hold off
 xlabel('Time (s)');
 ylabel('Volume (L)');
-hold off
+legend('Labchart', 'Integral');
 %%
 
 %% Flow integration sanity check
@@ -169,8 +168,8 @@ fredrik_respiratory_rate = length(fredrik_volume_peaks)
 
 % mean and standard deviation for respiratory rate
 group_values_rr = [benji_respiratory_rate, chris_respiratory_rate, fredrik_respiratory_rate];
-mean_group_values_rr = mean(group_values)
-std_group_values_rr = std(group_values)
+mean_group_values_rr = mean(group_values_rr)
+std_group_values_rr = std(group_values_rr)
 %%
 
 %% Tidal Inspiration
@@ -318,12 +317,12 @@ chris_max_exhale = abs(min(chris_volume));
 chris_ERV = chris_max_exhale - chris_normal_exhale
 
 % fredrik IRV
-fredrik_normal_inhale = mean(fredrik_tops);
+fredrik_normal_inhale = fredrik_tops(9);
 fredrik_max_inhale = max(fredrik_volume);
 fredrik_IRV = fredrik_max_inhale - fredrik_normal_inhale
 
 % fredrik ERV
-fredrik_normal_exhale = abs(mean(fredrik_troughs));
+fredrik_normal_exhale = abs(fredrik_troughs(9));
 fredrik_max_exhale = abs(min(fredrik_volume));
 fredrik_ERV = fredrik_max_exhale - fredrik_normal_exhale
 
