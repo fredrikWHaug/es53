@@ -115,14 +115,14 @@ ind_benji = find((e_benji(2:end-1)>threshold)&(de_benji(1:end-1)>0)&(de_benji(2:
 
 % plot
 time_benji = (1:length(e_benji))/sample_rate;
-figure(2);
-plot(time_benji, e_benji);
+%figure(2);
+%plot(time_benji, e_benji); for reference to find treshold empirically
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = 2 * sample_rate;
 [~,benji_volume_peaks] = findpeaks(e_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_benji(benji_volume_peaks), e_benji(benji_volume_peaks),'r*');
+%plot(time_benji(benji_volume_peaks), e_benji(benji_volume_peaks),'r*'); for reference to find treshold empirically
 hold off
 
 % peak finding chris
@@ -133,14 +133,14 @@ ind_chris = find((e_chris(2:end-1)>threshold)&(de_chris(1:end-1)>0)&(de_chris(2:
 
 % plot
 time_chris = (1:length(e_chris))/sample_rate;
-figure(3);
-plot(time_chris, e_chris);
+% figure(3);
+%plot(time_chris, e_chris); for reference to find treshold empirically
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = 2 * sample_rate;
 [~,chris_volume_peaks] = findpeaks(e_chris,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_chris(chris_volume_peaks), e_chris(chris_volume_peaks),'r*');
+% plot(time_chris(chris_volume_peaks), e_chris(chris_volume_peaks),'r*'); for reference to find treshold empirically
 hold off
 
 % peak finding fredrik
@@ -151,14 +151,15 @@ ind_fredrik = find((e_fredrik(2:end-1)>threshold)&(de_fredrik(1:end-1)>0)&(de_fr
 
 % plot
 time_fredrik = (1:length(e_fredrik))/sample_rate;
-figure(4);
-plot(time_fredrik, e_fredrik);
+% figure(4);
+% plot(time_fredrik, e_fredrik); for reference to find treshold empirically
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = 2 * sample_rate;
 [~,fredrik_volume_peaks] = findpeaks(e_fredrik,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_fredrik(fredrik_volume_peaks), e_fredrik(fredrik_volume_peaks),'r*');
+% plot(time_fredrik(fredrik_volume_peaks), e_fredrik(fredrik_volume_peaks),'r*');
+% for reference to find treshold empirically
 hold off
 
 % resperatory rates
@@ -180,14 +181,15 @@ de20_benji = diff(e20_benji); % derivative of this vector
 threshold = 0.1; % emperically determined peak treshold
 ind_benji = find((e20_benji(2:end-1)>threshold)&(de20_benji(1:end-1)>0)&(de20_benji(2:end)<0))+1;
 time_benji = (1:length(e20_benji))/sample_rate;
-figure(5);
-plot(time_benji, e20_benji);
+% figure(5);
+% plot(time_benji, e20_benji); for reference to find treshold empirically
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = 7 * sample_rate;
 [~,benji_top_peaks] = findpeaks(e20_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_benji(benji_top_peaks), e20_benji(benji_top_peaks),'r*');
+% plot(time_benji(benji_top_peaks), e20_benji(benji_top_peaks),'r*');
+% for reference to find treshold empirically
 hold off
 
 % bottom peak indices for benji
@@ -197,13 +199,14 @@ de20_benji_trough = diff(e20_benji_trough); % derivative of this vector
 threshold = 0; % peak treshold
 ind_benji_trough = find((e20_benji_trough(2:end-1)>threshold)&(de20_benji_trough(1:end-1)>0)&(de20_benji_trough(2:end)<0))+1;
 time_benji_trough = (1:length(e20_benji_trough))/sample_rate;
-figure(6);
-plot(time_benji_trough, e20_benji_trough);
+% figure(6);
+% plot(time_benji_trough, e20_benji_trough); for reference to find treshold empirically
 hold on
 MPH = threshold;
 MPD = 7 * sample_rate;
 [~,benji_trough_peaks] = findpeaks(e20_benji_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_benji_trough(benji_trough_peaks), e20_benji_trough(benji_trough_peaks),'r*');
+% plot(time_benji_trough(benji_trough_peaks), e20_benji_trough(benji_trough_peaks),'r*');
+% for reference to find treshold empirically
 axis([0 10 -1.1 1.1]);
 hold off
 
@@ -214,14 +217,15 @@ de20_chris = diff(e20_chris); % derivative of this vector
 threshold = -1.5; % emperically determined peak treshold
 ind_chris = find((e20_chris(2:end-1)>threshold)&(de20_chris(1:end-1)>0)&(de20_chris(2:end)<0))+1;
 time_chris = (1:length(e20_chris))/sample_rate;
-figure(7);
-plot(time_chris, e20_chris);
+% figure(7);
+% plot(time_chris, e20_chris); for reference to find treshold empirically
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = 3 * sample_rate;
 [~,chris_top_peaks] = findpeaks(e20_chris,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_chris(chris_top_peaks), e20_chris(chris_top_peaks),'r*');
+% plot(time_chris(chris_top_peaks), e20_chris(chris_top_peaks),'r*');
+% for reference to find treshold empirically
 hold off
 
 % trough indices for chris
@@ -231,13 +235,14 @@ de20_chris_trough = diff(e20_chris_trough); % derivative of this vector
 threshold = 0.3; % peak treshold
 ind_chris_trough = find((e20_chris_trough(2:end-1)>threshold)&(de20_chris_trough(1:end-1)>0)&(de20_chris_trough(2:end)<0))+1;
 time_chris_trough = (1:length(e20_chris_trough))/sample_rate;
-figure(8);
-plot(time_chris_trough, e20_chris_trough);
+% figure(8);
+% plot(time_chris_trough, e20_chris_trough); for reference to find treshold empirically
 hold on
 MPH = threshold;
 MPD = 3 * sample_rate;
 [~,chris_trough_peaks] = findpeaks(e20_chris_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_chris_trough(chris_trough_peaks), e20_chris_trough(chris_trough_peaks),'r*');
+% plot(time_chris_trough(chris_trough_peaks), e20_chris_trough(chris_trough_peaks),'r*');
+% for reference to find treshold empirically
 axis([0 10 -1.1 1.1]);
 hold off
 
@@ -248,14 +253,15 @@ de20_fredrik = diff(e20_fredrik); % derivative of this vector
 threshold = -3.5; % emperically determined peak treshold
 ind_fredrik = find((e20_fredrik(2:end-1)>threshold)&(de20_fredrik(1:end-1)>0)&(de20_fredrik(2:end)<0))+1;
 time_fredrik = (1:length(e20_fredrik))/sample_rate;
-figure(9);
-plot(time_fredrik, e20_fredrik);
+% figure(9);
+% plot(time_fredrik, e20_fredrik); for reference to find treshold empirically
 hold on
 axis([0 10 -1.1 1.1]);
 MPH = threshold;
 MPD = 3 * sample_rate;
 [~,fredrik_top_peaks] = findpeaks(e20_fredrik,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_fredrik(fredrik_top_peaks), e20_fredrik(fredrik_top_peaks),'r*');
+% plot(time_fredrik(fredrik_top_peaks), e20_fredrik(fredrik_top_peaks),'r*');
+% for reference to find treshold empirically
 hold off
 
 % trough indices for fredrik
@@ -265,13 +271,14 @@ de20_fredrik_trough = diff(e20_fredrik_trough); % derivative of this vector
 threshold = -0.15; % peak treshold
 ind_fredrik_trough = find((e20_fredrik_trough(2:end-1)>threshold)&(de20_fredrik_trough(1:end-1)>0)&(de20_fredrik_trough(2:end)<0))+1;
 time_fredrik_trough = (1:length(e20_fredrik_trough))/sample_rate;
-figure(10);
-plot(time_fredrik_trough, e20_fredrik_trough);
+% figure(10);
+% plot(time_fredrik_trough, e20_fredrik_trough); for reference to find treshold empirically
 hold on
 MPH = threshold;
 MPD = 3.5 * sample_rate;
 [~,fredrik_trough_peaks] = findpeaks(e20_fredrik_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-plot(time_fredrik_trough(fredrik_trough_peaks), e20_fredrik_trough(fredrik_trough_peaks),'r*');
+% plot(time_fredrik_trough(fredrik_trough_peaks), e20_fredrik_trough(fredrik_trough_peaks),'r*');
+% for reference to find treshold empirically
 axis([0 10 -1.1 1.1]);
 hold off
 
@@ -380,7 +387,7 @@ benji_VC = benji_mean_tidal_volume + benji_ERV + benji_IRV
 chris_VC = chris_mean_tidal_volume + chris_ERV + chris_IRV
 fredrik_VC = fredrik_mean_tidal_volume + fredrik_ERV + fredrik_IRV
 
-group_measured_VC = [benji_VC, chris_VC, fredrik_VC]
+group_measured_VC = [benji_VC, chris_VC, fredrik_VC];
 group_measured_VC_mean = mean(group_measured_VC)
 group_measured_VC_std = std(group_measured_VC)
 %%
@@ -459,6 +466,7 @@ cind13 = cdata.datastart(2,4);
 cind23 = cdata.dataend(2,4);
 ccutdata13 = cdata.data(cind13:cind23);
 ctime13 = (1:length(cdata.data(cind13:cind23)))/cdata.samplerate(1);
+
 %% Figure 2 Flow Graph
 %cut benji data
 bind3 = bdata.datastart(1,5);
@@ -519,6 +527,7 @@ ylabel('Volume (L)')
 xlim([0 length(ccutdata1)/cdata.samplerate(1)])
 legend('Benji','Chris','Fredrik')
 hold off
+
 %% Table 2
 stomin = (1/60);
 %calculate PIF
