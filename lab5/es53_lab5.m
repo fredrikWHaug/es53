@@ -279,51 +279,63 @@ hold off
 benji_troughs = benji_volume(benji_trough_peaks);
 benji_tops = benji_volume(benji_top_peaks);
 benji_tidal_volume = benji_tops - benji_troughs;
-benji_mean_tidal_volume = mean(benji_tidal_volume);
+benji_mean_tidal_volume = mean(benji_tidal_volume)
 
 chris_troughs = chris_volume(chris_trough_peaks);
 chris_tops = chris_volume(chris_top_peaks);
 chris_tidal_volume = chris_tops - chris_troughs;
-chris_mean_tidal_volume = mean(chris_tidal_volume);
+chris_mean_tidal_volume = mean(chris_tidal_volume)
 
 fredrik_troughs = fredrik_volume(fredrik_trough_peaks);
 fredrik_tops = fredrik_volume(fredrik_top_peaks);
 fredrik_tidal_volume = fredrik_tops - fredrik_troughs;
-fredrik_mean_tidal_volume = mean(fredrik_tidal_volume);
+fredrik_mean_tidal_volume = mean(fredrik_tidal_volume)
 
 group_tidal_volumes = [benji_mean_tidal_volume, chris_mean_tidal_volume, fredrik_mean_tidal_volume];
-group_mean_tidal_volumes = mean(group_tidal_volumes);
-group_std_tidal_volumes = std(group_tidal_volumes);
+group_mean_tidal_volumes = mean(group_tidal_volumes)
+group_std_tidal_volumes = std(group_tidal_volumes)
 %%
 
 %% IRV
 % benji IRV
 benji_normal_inhale = mean(benji_tops);
 benji_max_inhale = max(benji_volume);
-benji_IRV = benji_max_inhale - benji_normal_inhale;
+benji_IRV = benji_max_inhale - benji_normal_inhale
 
 % benji ERV
 benji_normal_exhale = abs(mean(benji_troughs));
 benji_max_exhale = abs(min(benji_volume));
-benji_ERV = benji_max_exhale - benji_normal_exhale;
+benji_ERV = benji_max_exhale - benji_normal_exhale
 
 % chris IRV
 chris_normal_inhale = mean(chris_tops);
 chris_max_inhale = max(chris_volume);
-chris_IRV = chris_max_inhale - chris_normal_inhale;
+chris_IRV = chris_max_inhale - chris_normal_inhale
 
 % chris ERV
 chris_normal_exhale = abs(mean(chris_troughs));
 chris_max_exhale = abs(min(chris_volume));
-chris_ERV = chris_max_exhale - chris_normal_exhale;
+chris_ERV = chris_max_exhale - chris_normal_exhale
 
 % fredrik IRV
 fredrik_normal_inhale = mean(fredrik_tops);
 fredrik_max_inhale = max(fredrik_volume);
-fredrik_IRV = fredrik_max_inhale - fredrik_normal_inhale;
+fredrik_IRV = fredrik_max_inhale - fredrik_normal_inhale
 
 % fredrik ERV
 fredrik_normal_exhale = abs(mean(fredrik_troughs));
 fredrik_max_exhale = abs(min(fredrik_volume));
-fredrik_ERV = fredrik_max_exhale - fredrik_normal_exhale;
+fredrik_ERV = fredrik_max_exhale - fredrik_normal_exhale
+%%
+
+%% IC
+benji_IC = benji_mean_tidal_volume + benji_IRV
+chris_IC = chris_mean_tidal_volume + chris_IRV
+fredrik_IC = fredrik_mean_tidal_volume + fredrik_IRV
+%%
+
+%% Measured VC
+subject_VC = benji_mean_tidal_volume + benji_ERV + benji_IRV
+subject_VC = chris_mean_tidal_volume + chris_ERV + chris_IRV
+subject_VC = fredrik_mean_tidal_volume + fredrik_ERV + fredrik_IRV
 %%
