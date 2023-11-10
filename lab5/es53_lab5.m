@@ -168,9 +168,9 @@ chris_respiratory_rate = length(chris_volume_peaks)
 fredrik_respiratory_rate = length(fredrik_volume_peaks)
 
 % mean and standard deviation for respiratory rate
-group_values = [benji_respiratory_rate, chris_respiratory_rate, fredrik_respiratory_rate];
-mean_group_values = mean(group_values)
-std_group_values = std(group_values)
+group_values_rr = [benji_respiratory_rate, chris_respiratory_rate, fredrik_respiratory_rate];
+mean_group_values_rr = mean(group_values)
+std_group_values_rr = std(group_values)
 %%
 
 %% Tidal Inspiration
@@ -326,16 +326,92 @@ fredrik_IRV = fredrik_max_inhale - fredrik_normal_inhale
 fredrik_normal_exhale = abs(mean(fredrik_troughs));
 fredrik_max_exhale = abs(min(fredrik_volume));
 fredrik_ERV = fredrik_max_exhale - fredrik_normal_exhale
+
+group_IRV = [benji_IRV, chris_IRV, fredrik_IRV];
+group_mean_IRV = mean(group_IRV)
+group_std_IRV = std(group_IRV)
+
+group_ERV = [benji_ERV, chris_ERV, fredrik_ERV];
+group_mean_ERV = mean(group_ERV)
+group_std_ERV = std(group_ERV)
+%%
+
+%% VE
+benji_VE = benji_respiratory_rate + benji_mean_tidal_volume
+chris_VE = chris_respiratory_rate + chris_mean_tidal_volume
+fredrik_VE = fredrik_respiratory_rate + fredrik_mean_tidal_volume
+
+group_VE = [benji_VE, chris_VE, fredrik_VE];
+group_mean_VE = mean(group_VE)
+group_std_VE = std(group_VE)
 %%
 
 %% IC
 benji_IC = benji_mean_tidal_volume + benji_IRV
 chris_IC = chris_mean_tidal_volume + chris_IRV
 fredrik_IC = fredrik_mean_tidal_volume + fredrik_IRV
+
+group_IC = [benji_IC, chris_IC, fredrik_IC];
+group_mean_IC = mean(group_IC)
+group_std_IC = std(group_IC)
+%%
+
+%% EC
+benji_EC = benji_mean_tidal_volume + benji_ERV
+chris_EC = chris_mean_tidal_volume + chris_ERV
+fredrik_EC = fredrik_mean_tidal_volume + fredrik_ERV
+
+group_EC = [benji_EC, chris_EC, fredrik_EC];
+group_EC_mean = mean(group_EC)
+group_EC_std = std(group_EC)
+%%
+
+%% Predicted VD from table
+benji_predicted_VC = 4.928;
+chris_predicted_VC = 5.248;
+fredrik_predicted_VC = 6.848;
+
+group_predicted_VC = [benji_predicted_VC, chris_predicted_VC, fredrik_predicted_VC];
+group_VC_mean = mean(group_predicted_VC)
+group_VC_std = std(group_predicted_VC)
 %%
 
 %% Measured VC
-subject_VC = benji_mean_tidal_volume + benji_ERV + benji_IRV
-subject_VC = chris_mean_tidal_volume + chris_ERV + chris_IRV
-subject_VC = fredrik_mean_tidal_volume + fredrik_ERV + fredrik_IRV
+benji_VC = benji_mean_tidal_volume + benji_ERV + benji_IRV
+chris_VC = chris_mean_tidal_volume + chris_ERV + chris_IRV
+fredrik_VC = fredrik_mean_tidal_volume + fredrik_ERV + fredrik_IRV
+
+group_measured_VC = [benji_VC, chris_VC, fredrik_VC]
+group_measured_VC_mean = mean(group_measured_VC)
+group_measured_VC_std = std(group_measured_VC)
+%%
+
+%% RV
+benji_RV = benji_predicted_VC * 0.25
+chris_RV = chris_predicted_VC * 0.25
+fredrik_RV = fredrik_predicted_VC * 0.25
+
+group_RV = [benji_RV, chris_RV, fredrik_RV];
+group_RV_mean = mean(group_RV)
+group_RV_std = std(group_RV)
+%%
+
+%% TLC
+benji_TLC = benji_VC + benji_RV
+chris_TLC = chris_VC + chris_RV
+fredrik_TLC = fredrik_VC + fredrik_RV
+
+group_TLC = [benji_TLC, chris_TLC, fredrik_TLC];
+group_TLC_mean = mean(group_TLC)
+group_TLC_std = std(group_TLC)
+%%
+
+%% FRC
+benji_FRC = benji_ERV + benji_RV
+chris_FRC = chris_ERV + chris_RV
+fredrik_FRC = fredrik_ERV + fredrik_RV
+
+group_FRC = [benji_FRC, chris_FRC, fredrik_FRC];
+group_FRC_mean = mean(group_FRC)
+group_FRC_std = std(group_FRC)
 %%
