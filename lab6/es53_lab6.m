@@ -103,14 +103,23 @@ ylabel('Voltage (mV)');
 %%
 
 %% Average Breathing Rate
-% benji
-% average brathing rate during normal breathing
-% you might be onto something, but not sure here
-% I need to understand this. Also, can just be re used. Not much left of
-% this lab.
-[pks, locs] = findpeaks(benji_normal_breathing);
-time_benji = time_benji_normal(locs);
-time_interval = diff(time_benji);
-breathing_rate = 1 ./ time_interval * sample_rate;
-mean_breathing_rate = mean(breathing_rate);
+% attempt to use the code Daniel suggested
+% [pks, locs] = findpeaks(benji_normal_breathing);
+% time_benji = time_benji_normal(locs);
+% time_interval = diff(time_benji);
+% breathing_rate = 1 ./ time_interval * sample_rate;
+% mean_breathing_rate = mean(breathing_rate);
+
+% average breathing rate
+% peak finding benji
+e_benji = benji_normal_breathing / max(benji_normal_breathing); % normalize
+de_benji = diff(e_benji); % derivative of this vector
+threshold = 0.8; % treshold due to normalization
+MPH = threshold;
+MPD = 5 * sample_rate;
+[~,benji_breath_peaks] = findpeaks(e_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+
+% benji breathing rate
+benji_breathing_rate = length(benji_breath_peaks);
+benji_breathing_rate
 %%
