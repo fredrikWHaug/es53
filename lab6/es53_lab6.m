@@ -54,6 +54,7 @@ time_fredrik_exhale_hold = (0 : length(fredrik_exhale_hold) - 1) / sample_rate;
 
 % all nine plots in order of person
 % benji plots (column 1)
+figure(1);
 subplot(3, 3, 1);
 plot(time_benji_normal, benji_normal_breathing);
 xlabel('Time (s)');
@@ -143,4 +144,31 @@ fredrik_breathing_rate = length(fredrik_breath_peaks);
 benji_breathing_rate
 chris_breathing_rate
 fredrik_breathing_rate
+%%
+
+%% Average Heart Rate
+% benji pulse data
+% 60 seconds normal breathing
+benji_normal_pulse = benji.data(benji.datastart(2, 1) : benji.datastart(2, 1) + (60 * sample_rate));
+time_benji_normal_pulse = (0 : length(benji_normal_pulse) - 1) / sample_rate;
+
+% peak finding benji
+% benji
+e_benji = benji_normal_pulse / max(benji_normal_pulse);
+de_benji = diff(e_benji); % derivative of this vector
+threshold = 0.3; % empirical peak treshold
+ind_benji = find((e_benji(2:end-1)>threshold)&(de_benji(1:end-1)>0)&(de_benji(2:end)<0))+1;
+
+% plot
+time_benji = (1:length(e_benji))/sample_rate;
+figure(2);
+plot(time_benji, e_benji);
+hold on
+axis([0 10 -1.1 1.1]);
+MPH = threshold;
+MPD = 0.5 * sample_rate;
+[~,benji_pulse_peaks] = findpeaks(e_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_benji(benji_pulse_peaks), e_benji(benji_pulse_peaks),'r*');
+hold off
+length(benji_pulse_peaks)
 %%
