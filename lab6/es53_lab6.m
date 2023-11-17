@@ -149,25 +149,29 @@ fredrik_breathing_rate
 % benji pulse data
 % 60 seconds normal breathing pulse
 benji_normal_pulse = benji.data(benji.datastart(2, 1) : benji.datastart(2, 1) + (60 * sample_rate));
-
-% 60 seconds inhale hold
-benji_inhale_hold = benji.data(benji.com(2, 3) : benji.com(3, 3));
-
-% 60 seconds exhale hold
-benji_exhale_hold = benji.data(benji.com(4, 3) - (10 * sample_rate) : benji.com(5, 3) + (25 * sample_rate));
+% 60 seconds inhale hold pulse
+benji_inhale_hold_pulse = benji.data(benji.datastart(2, 1) + 11970 : benji.datastart(2, 1) + 17890); % fetching data based on raw comment data point
+% 60 seconds exhale hold pulse
+benji_exhale_hold_pulse = benji.data(benji.datastart(2, 1) + 29805 : benji.datastart(2, 1) + 32145); % fetching data based on raw comment data point
 
 % chris pulse data
-% chris pulse data for normal breathing
+% 60 seconds normal breathing pulse
 chris_normal_pulse = chris.data(chris.datastart(2, 1) : chris.datastart(2, 1) + (60 * sample_rate));
+% 60 seconds inhale hold pulse
+chris_inhale_hold_pulse = chris.data(chris.datastart(2, 1) + 11675 : chris.datastart(2, 1) + 27915); % fetching data based on raw comment data point
+% 60 seconds exhale hold pulse
+chris_exhale_hold_pulse = chris.data(chris.datastart(2, 1) + 40550 : chris.datastart(2, 1) + 49690); % fetching data based on raw comment data point
 
-% 60 seconds inhale hold
-chris_inhale_hold = chris.data(chris.com(2, 3) : chris.com(3, 3) - (100 * sample_rate));
-
-% fredrik pulse data for normal breathing
+% fredrik pulse data
+% 60 seconds normal breathing pulse
 fredrik_normal_pulse = fredrik.data(fredrik.datastart(2, 1) : fredrik.datastart(2, 1) + (60 * sample_rate));
+% 60 seconds inhale hold pulse
+fredrik_inhale_hold_pulse = fredrik.data(fredrik.datastart(2, 1) + 11855 : fredrik.datastart(2, 1) + 20815); % fetching data based on raw comment data point
+% 60 seconds exhale hold
+fredrik_exhale_hold_pulse = fredrik.data(fredrik.datastart(2, 1) + 33130 : fredrik.datastart(2, 1) + 38245); % fetching data based on raw comment data point
 
-% peak finding benji
-% benji
+% benji heart rates
+% benji normal
 e_benji = benji_normal_pulse / max(benji_normal_pulse);
 de_benji = diff(e_benji); % derivative of this vector
 threshold = 0.3; % empirical peak treshold
@@ -186,6 +190,25 @@ plot(time_benji_normal(benji_normal_pulse_peaks), e_benji(benji_normal_pulse_pea
 title('Benji pulse normal breathing');
 hold off
 
+% benji inhale hold
+e_benji = benji_inhale_hold_pulse / max(benji_inhale_hold_pulse);
+de_benji = diff(e_benji); % derivative of this vector
+threshold = 0.3; % empirical peak treshold
+ind_benji = find((e_benji(2:end-1)>threshold)&(de_benji(1:end-1)>0)&(de_benji(2:end)<0))+1;
+
+% plot
+time_benji_inhale_hold = (1:length(e_benji))/sample_rate;
+figure(3);
+plot(time_benji_inhale_hold, e_benji);
+hold on
+axis([0 10 -1.1 1.1]);
+MPH = threshold;
+MPD = 0.3 * sample_rate;
+[~,benji_inhale_hold_pulse_peaks] = findpeaks(e_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_benji_inhale_hold(benji_inhale_hold_pulse_peaks), e_benji(benji_inhale_hold_pulse_peaks),'r*');
+title('Benji pulse inhale hold');
+hold off
+
 % peak finding chris
 % chris
 e_chris = chris_normal_pulse / max(chris_normal_pulse);
@@ -195,7 +218,7 @@ ind_chris = find((e_chris(2:end-1)>threshold)&(de_chris(1:end-1)>0)&(de_chris(2:
 
 % plot
 time_chris_normal = (1:length(e_chris))/sample_rate;
-figure(3);
+figure(4);
 plot(time_chris_normal, e_chris);
 hold on
 axis([0 10 -1.1 1.1]);
@@ -215,7 +238,7 @@ ind_fredrik = find((e_fredrik(2:end-1)>threshold)&(de_fredrik(1:end-1)>0)&(de_fr
 
 % plot
 time_fredrik_normal = (1:length(e_fredrik))/sample_rate;
-figure(4);
+figure(5);
 plot(time_fredrik_normal, e_fredrik);
 hold on
 axis([0 10 -1.1 1.1]);
@@ -226,9 +249,9 @@ plot(time_fredrik_normal(fredrik_normal_pulse_peaks), e_fredrik(fredrik_normal_p
 title('Fredrik pulse normal breathing');
 hold off
 
-benji_average_heart_rate_normal_breathing = length(benji_pulse_peaks);
-chris_average_heart_rate_normal_breathing = length(chris_pulse_peaks);
-fredrik_average_hear_rate_normal_breathing = length(fredrik_pulse_peaks);
+benji_average_heart_rate_normal_breathing = length(benji_normal_pulse_peaks);
+chris_average_heart_rate_normal_breathing = length(chris_normal_pulse_peaks);
+fredrik_average_hear_rate_normal_breathing = length(fredrik_normal_pulse_peaks);
 
 benji_average_heart_rate_normal_breathing
 chris_average_heart_rate_normal_breathing
@@ -241,9 +264,8 @@ fredrik_average_hear_rate_normal_breathing
 benji_normal_pulse = benji.data(benji.datastart(2, 1) : benji.datastart(2, 1) + (60 * sample_rate));
 
 % 60 seconds inhale hold
-benji_inhale_hold_pulse = benji.data(benji.datastart(2, 1) + 11970 : benji.datastart(2, 1) + 17890);
-time_benji_inhale_hold_pulse = (0 : length(benji_inhale_hold_pulse) - 1)/sample_rate;
+benji_inhale_hold_pulse = benji.data(benji.datastart(2, 1) + 11970 : benji.datastart(2, 1) + 17890); % change in channel number and fetching data based on raw comment data point
 
-figure(10);
-plot(time_benji_inhale_hold_pulse, benji_inhale_hold_pulse);
+% 60 seconds exhale hold
+benji_exhale_hold_pulse = benji.data(benji.datastart(2, 1) + 29805 : benji.datastart(2, 1) + 32145); % change in channel number and fetching data based on raw comment data point
 %%
