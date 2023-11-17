@@ -119,7 +119,28 @@ MPH = threshold;
 MPD = 5 * sample_rate;
 [~,benji_breath_peaks] = findpeaks(e_benji,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 
-% benji breathing rate
+% peak finding chris
+e_chris = chris_normal_breathing / max(chris_normal_breathing); % normalize
+de_chris = diff(e_chris); % derivative of this vector
+threshold = 0.8; % treshold due to normalization
+MPH = threshold;
+MPD = 5 * sample_rate;
+[~,chris_breath_peaks] = findpeaks(e_chris,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+
+% peak finding fredrik
+e_fredrik = fredrik_normal_breathing / max(fredrik_normal_breathing); % normalize
+de_fredrik = diff(e_fredrik); % derivative of this vector
+threshold = 0.8; % treshold due to normalization
+MPH = threshold;
+MPD = 5 * sample_rate;
+[~,fredrik_breath_peaks] = findpeaks(e_fredrik,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+
+% group breathing rates
 benji_breathing_rate = length(benji_breath_peaks);
+chris_breathing_rate = length(chris_breath_peaks);
+fredrik_breathing_rate = length(fredrik_breath_peaks);
+
 benji_breathing_rate
+chris_breathing_rate
+fredrik_breathing_rate
 %%
