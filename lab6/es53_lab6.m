@@ -234,3 +234,16 @@ benji_average_heart_rate_normal_breathing
 chris_average_heart_rate_normal_breathing
 fredrik_average_hear_rate_normal_breathing
 %%
+
+%% Extraction Test
+% benji pulse data
+% 60 seconds normal breathing pulse
+benji_normal_pulse = benji.data(benji.datastart(2, 1) : benji.datastart(2, 1) + (60 * sample_rate));
+
+% 60 seconds inhale hold
+benji_inhale_hold_pulse = benji.data(benji.datastart(2, 1) + 11970 : benji.datastart(2, 1) + 17890);
+time_benji_inhale_hold_pulse = (0 : length(benji_inhale_hold_pulse) - 1)/sample_rate;
+
+figure(10);
+plot(time_benji_inhale_hold_pulse, benji_inhale_hold_pulse);
+%%
