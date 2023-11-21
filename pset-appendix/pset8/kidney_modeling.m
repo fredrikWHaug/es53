@@ -8,7 +8,7 @@ asteriks_a = find(time_a == 1);
 
 % Plot
 figure(1);
-plot(time, fun1);
+plot(time_a, function_a);
 hold on
 plot(time_a(asteriks_a), function_a(asteriks_a), 'r*');
 hold off
