@@ -40,8 +40,21 @@ hold off
 grid on
 %%
 
-%%
+%% d
 syms x
 t_50 = double(solve(a_0 == 2*(a_0*exp(-x/tau))))
 t_37 = double(solve(a_0 == 1/.37*(a_0*exp(-x/tau))))
+%%
+
+%% e
+time_c = 0:.1:40;
+a_0 = 2;
+tau = 10;
+function_c = a_0*exp(-time_c/tau);
+
+figure(4);
+plot(time_c, function_c);
+hold on
+hold off
+grid on
 %%
