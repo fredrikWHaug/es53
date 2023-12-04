@@ -67,7 +67,7 @@ plot(168 + (time_p2(peaks_2)), p_2(peaks_2), 'ro');
 
 plot(time_t1(troughs_1), -1*t_1(troughs_1),'c*');
 plot(150.86, 26.4678, 'c*');
-plot(168 + time_t2(troughs_2, -1*t_2(troughs_2)), 'c*');
+plot((time_t2(troughs_2)), -1*t_2(troughs_2), 'c*');
 hold off
 xlabel('Time (s)');
 ylabel('Lung expansion (a.u)');
