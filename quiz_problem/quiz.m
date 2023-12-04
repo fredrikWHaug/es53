@@ -11,23 +11,55 @@ time_breath = (0 : length(subject_breath) - 1) / sample_rate;
 time_pulse = (0 : length(subject_pulse) - 1) / sample_rate;
 
 % subject peak finding
-e_subject = subject_breath;
-de_subject = diff(e_subject); % derivative of this vector
+ep_subject = subject_breath;
+dep_subject = diff(ep_subject); % derivative of this vector
 threshold = 10; % empirical peak treshold
+time_subject_breath = (1:length(ep_subject))/sample_rate;
 
-% plot
-time_subject_breath = (1:length(e_subject))/sample_rate;
-%figure(2);
-%plot(time_subject_breath, e_subject);
+% peaks reference plot
+figure(1);
+plot(time_subject_breath, ep_subject);
 hold on
 MPH = threshold;
 MPD = 2 * sample_rate;
-[~,subject_breath_peaks] = findpeaks(e_subject,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
-%plot(time_subject_breath(subject_breath_peaks), e_subject(subject_breath_peaks),'ro');
+[~,subject_breath_peaks] = findpeaks(ep_subject,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_subject_breath(subject_breath_peaks), ep_subject(subject_breath_peaks),'ro');
 title('Subject pulse normal breathing');
 hold off
 
-figure(1);
+% subject trough finding
+% subject peak finding
+et_subject = subject_breath * -1;
+det_subject = diff(et_subject); % derivative of this vector
+threshold = -25; % empirical peak treshold
+time_subject_breath_troughs = (1:length(et_subject))/sample_rate;
+
+% troughs reference plot
+figure(2);
+plot(time_subject_breath_troughs, et_subject);
+hold on
+MPH = threshold;
+MPD = 2 * sample_rate;
+[~,subject_breath_troughs] = findpeaks(et_subject,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+plot(time_subject_breath_troughs(subject_breath_troughs), e_subject(subject_breath_troughs),'r*');
+title('Subject pulse normal breathing');
+hold off
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% final plot
+figure(3);
 subplot(2, 1, 1);
 plot(time_breath, subject_breath, 'black');
 hold on
@@ -40,3 +72,4 @@ subplot(2, 1, 2);
 plot(time_pulse, subject_pulse, 'black');
 xlabel('Time (s)');
 ylabel('Pulse (a.u)');
+
