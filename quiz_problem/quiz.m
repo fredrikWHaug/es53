@@ -31,9 +31,22 @@ de_2 = diff(e_2); % derivative of this vector
 threshold = 13; % visual peak treshold
 time_2 = (1:length(e_2)) / sample_rate;
 MPH = threshold;
-MPD = 2 * sample_rate;
+MPD = 3 * sample_rate;
 [~,peaks_2] = findpeaks(e_2,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+%%
 
+%% Troughs
+trough_data = part_1_data * -1;
+e_trough = trough_data;
+de_trough = diff(e_trough); % derivative of this vector
+threshold = -10.5; % visual trough (peak for inverted) treshold  
+time_trough = (1:length(e_trough)) / sample_rate;
+MPH = threshold;
+MPD = 2 * sample_rate;
+[~, trough_peaks] = findpeaks(e_trough,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+%%
+
+%% Plot
 % plot
 figure(1);
 subplot(2, 1, 1);
@@ -43,6 +56,8 @@ plot(time_1(peaks_1), e_1(peaks_1), 'ro');
 plot(123.08, 35.2746, 'ro');
 plot(163.17, 28.1866, 'ro');
 plot(168+(time_2(peaks_2)), e_2(peaks_2), 'ro');
+plot(time_trough(trough_peaks), -1*e_trough(trough_peaks),'c*');
+plot(150.86, 26.4678, 'c*');
 hold off
 xlabel('Time (s)');
 ylabel('Lung expansion (a.u)');
