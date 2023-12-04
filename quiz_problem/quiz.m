@@ -1,5 +1,6 @@
 
 %% Load and Plot
+clear all, close all
 % load data
 subject = load('respiratorydata.mat');
 sample_rate = subject.samplerate(1);
@@ -15,18 +16,18 @@ time_pulse = (0 : length(subject_pulse) - 1) / sample_rate;
 
 %% Peaks
 % peak finding part 1
-part_1_data = subject.data(subject.datastart(1, 1) : subject.datastart(1, 1) + 120 * sample_rate);
-e_1 = part_1_data;
+peak_1_data = subject.data(subject.datastart(1, 1) : subject.datastart(1, 1) + 120 * sample_rate);
+e_1 = peak_1_data;
 de_1 = diff(e_1); % derivative of this vector
-threshold = 0; % visual peak treshold
+threshold = 10.5; % visual peak treshold
 time_1 = (1:length(e_1)) / sample_rate;
 MPH = threshold;
 MPD = 2 * sample_rate;
 [~,peaks_1] = findpeaks(e_1,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 
 % peak finding part 2
-part_2_data = subject.data(subject.datastart(1, 1) + (168 * sample_rate) : subject.datastart(1, 1) + (200 * sample_rate));
-e_2 = part_2_data;
+peak_2_data = subject.data(subject.datastart(1, 1) + (168 * sample_rate) : subject.datastart(1, 1) + (200 * sample_rate));
+e_2 = peak_2_data;
 de_2 = diff(e_2); % derivative of this vector
 threshold = 13; % visual peak treshold
 time_2 = (1:length(e_2)) / sample_rate;
@@ -36,8 +37,9 @@ MPD = 3 * sample_rate;
 %%
 
 %% Troughs
-trough_data = part_1_data * -1;
-e_trough = trough_data;
+% trough finding part 1
+trough_1_data = peak_1_data * -1;
+e_trough = trough_1_data;
 de_trough = diff(e_trough); % derivative of this vector
 threshold = -10.5; % visual trough (peak for inverted) treshold  
 time_trough = (1:length(e_trough)) / sample_rate;
