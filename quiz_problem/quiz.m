@@ -18,10 +18,10 @@ time_pulse = (0 : length(subject_pulse) - 1) / sample_rate;
 % peak finding part 1
 peak_1_data = subject.data(subject.datastart(1, 1) : subject.datastart(1, 1) + 120 * sample_rate);
 p_1 = peak_1_data;
-threshold = 10.5; % visual peak treshold
+threshold = 10.16; % visual peak treshold
 time_p1 = (1:length(p_1)) / sample_rate;
 MPH = threshold;
-MPD = 2 * sample_rate;
+MPD = 1.8 * sample_rate;
 [~,peaks_1] = findpeaks(p_1,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 
 % peak finding part 2
@@ -32,6 +32,9 @@ time_p2 = (1:length(p_2)) / sample_rate;
 MPH = threshold;
 MPD = 3 * sample_rate;
 [~,peaks_2] = findpeaks(p_2,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+
+max_inhale = [123.08, 35.2746];
+first_inhale_post_max = [163.17, 28.1866];
 %%
 
 %% Troughs
@@ -50,8 +53,10 @@ t_2 = trough_2_data;
 threshold = -20; % visual trough (peak for inverted) treshold  
 time_t2 = (1:length(t_2)) / sample_rate;
 MPH = threshold;
-MPD = 2 * sample_rate;
+MPD = 3 * sample_rate;
 [~, troughs_2] = findpeaks(t_2,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+
+first_exhale_post_max = [150.86, 26.4678];
 %%
 
 %% Plot
@@ -60,12 +65,12 @@ subplot(2, 1, 1);
 plot(time_breath, subject_breath, 'black');
 hold on
 plot(time_p1(peaks_1), p_1(peaks_1), 'ro');
-plot(123.08, 35.2746, 'ro');
-plot(163.17, 28.1866, 'ro');
+plot(max_inhale(1), max_inhale(2), 'ro');
+plot(first_inhale_post_max(1), first_inhale_post_max(2), 'ro');
 plot(168 + (time_p2(peaks_2)), p_2(peaks_2), 'ro');
 
 plot(time_t1(troughs_1), -1*t_1(troughs_1),'c*');
-plot(150.86, 26.4678, 'c*');
+plot(first_exhale_post_max(1), first_exhale_post_max(2), 'c*');
 plot(166.65 + (time_t2(troughs_2)), -1*t_2(troughs_2), 'c*');
 hold off
 xlabel('Time (s)');
@@ -75,6 +80,11 @@ subplot(2, 1, 2);
 plot(time_pulse, subject_pulse, 'black');
 xlabel('Time (s)');
 ylabel('Pulse (a. u)');
+%%
+
+%%  Peaks and Valleys
+peakNum1 = (length(peaks_1) + (length(max_inhale) - 1) + (length(first_inhale_post_max) - 1) + length(peaks_2))
+peakNum2 = (length(troughs_1) + (length(first_exhale_post_max) - 1) + length(troughs_2))
 %%
 
 %% Respiratory rate
