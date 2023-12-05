@@ -73,13 +73,13 @@ plot(time_t1(troughs_1), -1*t_1(troughs_1),'c*');
 plot(first_exhale_post_max(1), first_exhale_post_max(2), 'c*');
 plot(166.65 + (time_t2(troughs_2)), -1*t_2(troughs_2), 'c*');
 hold off
-xlabel('Time (s)');
-ylabel('Lung expansion (a.u)');
+xlabel('time (s)');
+ylabel('Lung expansion (a.u.)');
 
 subplot(2, 1, 2);
 plot(time_pulse, subject_pulse, 'black');
-xlabel('Time (s)');
-ylabel('Pulse (a. u)');
+xlabel('time (s)');
+ylabel('Pulse (a. u.)');
 %%
 
 %%  Peaks and Valleys
