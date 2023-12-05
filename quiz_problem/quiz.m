@@ -45,7 +45,7 @@ MPD = 2 * sample_rate;
 [~, troughs_1] = findpeaks(t_1,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
 
 % trough finding part 2
-trough_2_data = peak_2_data * -1;
+trough_2_data = subject.data(subject.datastart(1, 1) + (166.65 * sample_rate) : subject.datastart(1, 1) + (200 * sample_rate)) * -1;
 t_2 = trough_2_data;
 threshold = -20; % visual trough (peak for inverted) treshold  
 time_t2 = (1:length(t_2)) / sample_rate;
@@ -67,7 +67,7 @@ plot(168 + (time_p2(peaks_2)), p_2(peaks_2), 'ro');
 
 plot(time_t1(troughs_1), -1*t_1(troughs_1),'c*');
 plot(150.86, 26.4678, 'c*');
-plot(168 + (time_t2(troughs_2)), -1*t_2(troughs_2), 'c*');
+plot(166.65 + (time_t2(troughs_2)), -1*t_2(troughs_2), 'c*');
 hold off
 xlabel('Time (s)');
 ylabel('Lung expansion (a.u)');
