@@ -55,7 +55,6 @@ MPD = 2 * sample_rate;
 %%
 
 %% Plot
-% plot
 figure(1);
 subplot(2, 1, 1);
 plot(time_breath, subject_breath, 'black');
@@ -76,4 +75,40 @@ subplot(2, 1, 2);
 plot(time_pulse, subject_pulse, 'black');
 xlabel('Time (s)');
 ylabel('Pulse (a. u)');
+%%
+
+%% Respiratory rate
+tidal_breathing = subject.data(subject.com(1, 3) : subject.com(1, 3) + (60 * sample_rate));
+time_tidal_breathing = (0 : length(tidal_breathing) - 1) / sample_rate;
+
+MPH = 11; % visual peak treshold
+MPD = 1.5 * sample_rate;
+[~, tidal_peaks] = findpeaks(tidal_breathing,'MinPeakHeight',MPH,'MinPeakDistance',MPD);
+
+% peak plot for reference / sanity check
+% figure(2);
+% plot(time_tidal_breathing, tidal_breathing);
+% hold on
+% plot(time_tidal_breathing(tidal_peaks), tidal_breathing(tidal_peaks), 'r*');
+% hold off
+
+RR = length(tidal_peaks)
+%%
+
+%% Heart rate
+pulse_data = subject.data(subject.datastart(2, 1) : subject.datastart(2, 1) + (60 * sample_rate));
+time_pulse_data = (0 : length(pulse_data) - 1) / sample_rate;
+
+MPH = 0.048;
+MPD = 0.7;
+[~, pulse_peaks] = findpeaks(pulse_data, 'MinPeakHeight',MPH, 'MinPeakDistance',MPD);
+
+% peak plot for reference / sanity check
+% figure(3);
+% plot(time_pulse_data, pulse_data);
+% hold on
+% plot(time_pulse_data(pulse_peaks), pulse_data(pulse_peaks), 'r*');
+% hold off
+
+HR = length(pulse_peaks)
 %%
